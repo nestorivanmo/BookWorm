@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Mozek</string>
+    <string name="holaMundoTV_AL">Hola Mundo</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+</resources>
