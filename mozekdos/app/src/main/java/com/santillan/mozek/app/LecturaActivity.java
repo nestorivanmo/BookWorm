@@ -1,9 +1,15 @@
-package com.santillan.mosek;
+package com.santillan.mozek.app;
 
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.santillan.mosek.R;
+import com.santillan.mozek.app.adminLibros.AdminLibrosFragment;
+import com.santillan.mozek.app.biblioteca.BibliotecaFragment;
+import com.santillan.mozek.app.lectorDigital.LectorDigitalFragment;
+
 
 public class LecturaActivity extends AppCompatActivity {
     BibliotecaFragment fragmentoBiblioteca;
@@ -29,7 +35,6 @@ public class LecturaActivity extends AppCompatActivity {
                   case R.id.botAdmin:
                         transaction.replace(R.id.ContenedorFragmentos,fragmentoAdmin);
                       break;
-
                   case R.id.botLector:
                       transaction.replace(R.id.ContenedorFragmentos,fragmentoLector);
                       break;
@@ -37,10 +42,6 @@ public class LecturaActivity extends AppCompatActivity {
                       transaction.replace(R.id.ContenedorFragmentos,fragmentoBiblioteca);
                       break;
               }
-
-
-
-
         transaction.commit();
     }
 }

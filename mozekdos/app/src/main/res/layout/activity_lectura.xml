@@ -12,7 +12,7 @@
     android:paddingRight="16dp"
 
     android:orientation="vertical"
-    tools:context=".LecturaActivity"
+    tools:context=".adminApp.LecturaActivity"
     >
 
     <LinearLayout

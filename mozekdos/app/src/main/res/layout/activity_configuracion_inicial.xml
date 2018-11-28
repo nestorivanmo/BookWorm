@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/FondoGris"
     android:orientation="vertical"
-    tools:context=".configuracionInicial">
+    tools:context=".configInicial.configuracionInicial">
 
     <TextView
         android:id="@+id/Textview5"
@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:text="@string/Bienvenido"
         android:textColor="@color/Amarillo"
-        android:textSize="60dp"
+        android:textSize="60sp"
         android:textStyle="bold" />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_margin="40dp"
         android:text="@string/SeleccionLibro"
         android:textColor="@color/Blanco"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <Spinner
@@ -46,7 +46,7 @@
         android:layout_margin="20dp"
         android:text="@string/SeleccionTiempo"
         android:textColor="@color/Blanco"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <Spinner
@@ -63,7 +63,7 @@
         android:layout_margin="10dp"
         android:text="@string/HorarioPreferente"
         android:textColor="@color/Blanco"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <EditText
@@ -76,17 +76,15 @@
         android:background="@color/Blanco"
         android:hint="09:00"
         android:inputType="text"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="italic" />
 
     <Button
         android:id="@+id/botonredondo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
         android:background="@drawable/redondeado"
-        android:text="-->"
-        android:textSize="60dp" />
-
+        />
 
 </LinearLayout>

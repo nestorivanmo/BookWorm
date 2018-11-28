@@ -1,9 +1,12 @@
-package com.santillan.mosek;
+package com.santillan.mozek.auth;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.santillan.mosek.R;
+import com.santillan.mozek.config.configuracionInicial;
 
 public class LoginActivity extends AppCompatActivity {
     Button ButSignUp,ButLogin;
@@ -21,11 +24,11 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intentSign);
               }
           });
+
           ButLogin=(Button)findViewById(R.id.LOGIN1);
           ButLogin.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-
                   Intent intentLo= new Intent(LoginActivity.this,configuracionInicial.class);
                   startActivity(intentLo);
               }

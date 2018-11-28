@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/FondoGris"
-    tools:context=".SignUpActivity">
+    tools:context=".auth.SignUpActivity">
 
     <TextView
         android:id="@+id/holaMundoTV_LoginActivity"

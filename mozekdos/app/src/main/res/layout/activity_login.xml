@@ -7,7 +7,7 @@
     android:orientation="vertical"
 
     android:background="@color/FondoGris"
-    tools:context=".LoginActivity">
+    tools:context=".auth.LoginActivity">
 
     <TextView
         android:id="@+id/holaMundoTV_LoginActivity"

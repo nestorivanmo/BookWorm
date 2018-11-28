@@ -1,4 +1,4 @@
-package com.santillan.mosek;
+package com.santillan.mozek.app.lectorDigital;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,16 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.santillan.mosek.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AdminLibrosFragment.OnFragmentInteractionListener} interface
+ * {@link LectorDigitalFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AdminLibrosFragment#newInstance} factory method to
+ * Use the {@link LectorDigitalFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AdminLibrosFragment extends Fragment {
+public class LectorDigitalFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +31,7 @@ public class AdminLibrosFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public AdminLibrosFragment() {
+    public LectorDigitalFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +41,11 @@ public class AdminLibrosFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AdminLibrosFragment.
+     * @return A new instance of fragment LectorDigitalFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AdminLibrosFragment newInstance(String param1, String param2) {
-        AdminLibrosFragment fragment = new AdminLibrosFragment();
+    public static LectorDigitalFragment newInstance(String param1, String param2) {
+        LectorDigitalFragment fragment = new LectorDigitalFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,7 +66,7 @@ public class AdminLibrosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_libros, container, false);
+        return inflater.inflate(R.layout.fragment_lector_digital, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
