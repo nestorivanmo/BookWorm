@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:background="@color/FondoGris"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/holaMundoTV_LoginActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Mosek"
+        android:textStyle="bold"
+        android:textSize="60dp"
+        android:layout_gravity="center"
+        android:textColor="@color/Amarillo" />
+
+    <EditText
+
+        android:id="@+id/editText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="@string/correo"
+        android:textSize="20dp"
+        android:background="@color/Blanco"
+        android:layout_margin="40dp"
+        android:textStyle="italic"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/contrasena"
+        android:textSize="20dp"
+        android:background="@color/Blanco"
+        android:layout_margin="40dp"
+        android:textStyle="italic"
+        android:gravity="center"
+        android:inputType="text" />
+
+
+    <Button
+        android:id="@+id/LOGIN1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:hint="@string/Login_boton"
+        android:layout_gravity="center" />
+    <Button
+        android:id="@+id/SIGN1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:hint="@string/SignUp_boton"
+        android:background="@color/FondoGris"
+        android:layout_gravity="center" />
+
+</LinearLayout>

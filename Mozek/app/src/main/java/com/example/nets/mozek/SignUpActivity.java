@@ -1,4 +1,4 @@
-package com.example.nets.mozek;
+package com.santillan.mosek;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
