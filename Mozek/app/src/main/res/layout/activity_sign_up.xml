@@ -9,7 +9,7 @@
     android:background="@color/FondoGris">
 
     <TextView
-        android:id="@+id/holaMundoTV_LoginActivity"
+        android:id="@+id/registerTV_SignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -20,7 +20,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/usernameET_EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
@@ -32,11 +32,11 @@
         android:textStyle="italic" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/emailET_SignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/correo"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:background="@color/Blanco"
         android:layout_margin="40dp"
         android:textSize="20sp"
@@ -44,33 +44,31 @@
         android:textStyle="italic"/>
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/passwordET_SignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/contrasena"
         android:background="@color/Blanco"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:layout_margin="40dp"
         android:textStyle="italic"
         android:textSize="20sp"
         android:gravity="center"/>
 
     <Button
-        android:id="@+id/SIGN2"
+        android:id="@+id/signUpButton_SignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:hint="@string/SignUp_boton"
-        android:inputType="text"
         android:layout_gravity="center"/>
 
     <Button
-        android:id="@+id/LOGIN2"
+        android:id="@+id/changeToLoginButton_SignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/FondoGris"
         android:hint="@string/Login_boton"
-        android:inputType="text"
         android:layout_gravity="center"/>
 
 </LinearLayout>

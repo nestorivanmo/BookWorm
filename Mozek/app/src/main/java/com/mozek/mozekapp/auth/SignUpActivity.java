@@ -19,7 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        ButSignUp2=(Button)findViewById(R.id.SIGN2);
+        ButSignUp2=(Button)findViewById(R.id.signUpButton_SignUp);
         ButSignUp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,7 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(intentSign2);
             }
         });
-        ButLogin2=(Button)findViewById(R.id.LOGIN2);
+        ButLogin2=(Button)findViewById(R.id.changeToLoginButton_SignUp);
         ButLogin2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
