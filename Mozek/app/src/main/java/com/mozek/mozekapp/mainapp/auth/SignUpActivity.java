@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.mozek.mozekapp.fairules.Errors_Sign_UP;
 import com.mozek.mozekapp.mainapp.config.InitialConfigActivity;
 
 import com.mozek.mozekapp.R;
@@ -60,28 +61,28 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void registrarUsuario(String email,String password){
         if (TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Se debe ingresar un email",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,Errors_Sign_UP.ERROR_01_missing_mail,Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty((password))){
-            Toast.makeText(this,"Se debe ingresar una contraseña",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,Errors_Sign_UP.ERROR_02_missing_password,Toast.LENGTH_LONG).show();
             return;
         }
 
-        progressRegister.setMessage("Realizando Registro...");
+        progressRegister.setMessage(Errors_Sign_UP.ERROR_03_performingR);
         progressRegister.show();
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(SignUpActivity.this,"Registro Exitoso",Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignUpActivity.this,Errors_Sign_UP.ERROR_04_RecordS_,Toast.LENGTH_LONG).show();
                             Intent intentSign2= new Intent(SignUpActivity.this,InitialConfigActivity.class);//InitialConfigActivity
                             startActivity(intentSign2);
                         }else{
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(SignUpActivity.this, "Ese usuario ya existe", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, Errors_Sign_UP.ERROR_05__UserAE, Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(SignUpActivity.this, "Fracaso de registro", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, Errors_Sign_UP.ERROR_06_recordFailure, Toast.LENGTH_SHORT).show();
                             }
 
                         }

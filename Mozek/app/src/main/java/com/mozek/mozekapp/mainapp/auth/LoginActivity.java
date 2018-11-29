@@ -15,11 +15,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.mozek.mozekapp.fairules.Errors_Login;
 import com.mozek.mozekapp.mainapp.config.InitialConfigActivity;
 
 import com.mozek.mozekapp.R;
-import com.mozek.mozekapp.verifiers.Errors;
-
 public class LoginActivity extends AppCompatActivity {
 
     private Button signUpButton, loginButton; //lowerCamelCase -- atributos  UpperCamelCase -- clases
@@ -57,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public  void login(String email,String password) {
         if (TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Se debe ingresar un email",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,Errors_Login.ERROR_01_missing_mail,Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty((password))){
@@ -65,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        verifiableUsually.setMessage(Errors.ERROR_01);
+        verifiableUsually.setMessage("44");
         verifiableUsually.show();
 
         fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
