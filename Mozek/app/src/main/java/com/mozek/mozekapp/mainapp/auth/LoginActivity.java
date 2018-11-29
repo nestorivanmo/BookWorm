@@ -19,8 +19,8 @@ import com.mozek.mozekapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button ButSignUp, ButLogin;
-    EditText cajatextEmail,cajatextPassword;
+    private Button signUpButton, loginButton; //lowerCamelCase -- atributos  UpperCamelCase -- clases
+    private EditText emailEditText, passwordEditText;
     private FirebaseAuth fireAuth;
 
 
@@ -28,8 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        cajatextEmail=(EditText) findViewById(R.id.emailET_Login);
-        cajatextPassword =(EditText) findViewById(R.id.passwordET_Login);
+        emailEditText = findViewById(R.id.emailET_Login);
+        passwordEditText = findViewById(R.id.passwordET_Login);
 
         fireAuth=FirebaseAuth.getInstance();
         /*authStateListener= new FirebaseAuth.AuthStateListener() {
@@ -49,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         */
-        ButSignUp=(Button)findViewById(R.id.changeToSignUpButton_Login);
-        ButSignUp.setOnClickListener(new View.OnClickListener() {
+        signUpButton= findViewById(R.id.changeToSignUpButton_Login);
+        signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentSign= new Intent(LoginActivity.this,SignUpActivity.class);
@@ -58,12 +58,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        ButLogin=(Button)findViewById(R.id.loginButton_Login);
-        ButLogin.setOnClickListener(new View.OnClickListener() {
+        loginButton=findViewById(R.id.loginButton_Login);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
-
             }
         });
     }
@@ -71,18 +70,17 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public  void login() {
-        String correo = cajatextEmail.getText().toString();
-        String password = cajatextPassword.getText().toString();
+        String correo = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
 
         fireAuth.signInWithEmailAndPassword(correo,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Intent intentLo= new Intent(LoginActivity.this,InitialConfigActivity.class);
-                    startActivity(intentLo);
+                    Intent goToConfigIntent = new Intent(LoginActivity.this, InitialConfigActivity.class);
+                    startActivity(goToConfigIntent);
                 }else{
                     Toast.makeText(LoginActivity.this, "Error de inicio de secion", Toast.LENGTH_LONG).show();
-
                 }
             }
         });
