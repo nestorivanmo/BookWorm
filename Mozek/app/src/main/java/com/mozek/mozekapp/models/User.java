@@ -10,6 +10,9 @@ public class User implements Parcelable{
     private String email;
     private String password;
 
+    public User(){
+    }
+
     public User(Parcel in) {
         this.username = in.readString();
         this.email = in.readString();

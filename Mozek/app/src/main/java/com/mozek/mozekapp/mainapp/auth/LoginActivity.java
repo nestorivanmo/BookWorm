@@ -73,8 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             authVerifier.displaySuccess(LoginActivity.this, Errors_Login.ERROR_05_welcome);
-
-                            // TODO: 11/29/18 Create user here
                                 Intent goToConfigIntent = new Intent(LoginActivity.this, InitialConfigActivity.class);
                                 startActivity(goToConfigIntent);
                         } else {
