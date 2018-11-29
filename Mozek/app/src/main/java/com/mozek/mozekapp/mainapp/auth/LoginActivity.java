@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import com.mozek.mozekapp.exceptions.AuthException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -19,22 +19,31 @@ import com.mozek.mozekapp.fairules.Errors_Login;
 import com.mozek.mozekapp.mainapp.config.InitialConfigActivity;
 
 import com.mozek.mozekapp.R;
+import com.mozek.mozekapp.verifiers.AuthVerifier;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Button signUpButton, loginButton; //lowerCamelCase -- atributos  UpperCamelCase -- clases
     private EditText emailEditText, passwordEditText;
     private FirebaseAuth fireAuth;
     public ProgressDialog verifiableUsually;
+    private AuthVerifier authVerifier = new AuthVerifier();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        findGraphicElements();
+        activateButtons();
+    }
+
+    private void findGraphicElements(){
         emailEditText = findViewById(R.id.emailET_Login);
         passwordEditText = findViewById(R.id.passwordET_Login);
         fireAuth=FirebaseAuth.getInstance();
         signUpButton= findViewById(R.id.changeToSignUpButton_Login);
         loginButton=findViewById(R.id.loginButton_Login);
-
+    }
+    private void activateButtons(){
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,32 +63,37 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
     public  void login(String email,String password) {
-        if (TextUtils.isEmpty(email)){
-            Toast.makeText(this,Errors_Login.ERROR_01_missing_mail,Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(TextUtils.isEmpty((password))){
-            Toast.makeText(this,Errors_Login.ERROR_02_missing_password,Toast.LENGTH_LONG).show();
-            return;
-        }
+        try {
+            if (authVerifier.verifyInfoLogin(this, email, password) ) {
+                verifiableUsually.setMessage(Errors_Login.ERROR_03_validatingU);
+                verifiableUsually.show();
+                fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
 
-        verifiableUsually.setMessage("Velidando Usuario");
-        verifiableUsually.show();
+                            authVerifier.displaySuccess(LoginActivity.this, Errors_Login.ERROR_05_welcome);
 
-        fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Intent goToConfigIntent = new Intent(LoginActivity.this, InitialConfigActivity.class);
-                    startActivity(goToConfigIntent);
-                }else{
-                    Toast.makeText(LoginActivity.this, "There was an error", Toast.LENGTH_LONG).show();
-                }
-                verifiableUsually.dismiss();
+                            // TODO: 11/29/18 Create user here
+                                Intent goToConfigIntent = new Intent(LoginActivity.this, InitialConfigActivity.class);
+                                startActivity(goToConfigIntent);
+                        } else {
+
+                                authVerifier.displayError(LoginActivity.this,Errors_Login.ERROR_04_error );
+
+
+
+                        }
+                        verifiableUsually.dismiss();
+                    }
+                });
             }
-        });
 
+        }catch (AuthException e){
+            //authVerifier.displayError(this,Errors_Sign_UP.ERROR_06_recordFailure );
+        }
     }
 
 }

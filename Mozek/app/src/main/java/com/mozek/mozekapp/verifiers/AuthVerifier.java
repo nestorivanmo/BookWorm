@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.mozek.mozekapp.exceptions.AuthException;
+import com.mozek.mozekapp.fairules.Errors_Login;
 import com.mozek.mozekapp.fairules.Errors_Sign_UP;
 
 public class AuthVerifier extends Verifier {
@@ -21,6 +22,18 @@ public class AuthVerifier extends Verifier {
         }
         if(TextUtils.isEmpty((pwd))){
             super.displayError(activityContext, Errors_Sign_UP.ERROR_02_missing_password);
+            throw new AuthException();
+        }
+        return true;
+    }
+
+    public boolean verifyInfoLogin(Context activityContext,  String email, String pwd) throws AuthException{
+        if(TextUtils.isEmpty((email))){
+            super.displayError(activityContext, Errors_Login.ERROR_01_missing_Mail);
+            throw new AuthException();
+        }
+        if(TextUtils.isEmpty((pwd))){
+            super.displayError(activityContext, Errors_Login.ERROR_02_missing_Password);
             throw new AuthException();
         }
         return true;
