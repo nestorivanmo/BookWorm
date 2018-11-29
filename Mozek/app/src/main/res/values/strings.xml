@@ -1,15 +1,28 @@
 <resources>
     <string name="app_name">Mozek</string>
     <string name="Mozek">Mozek</string>
+
     <string name="correo">Email</string>
     <string name="usuario">Username</string>
+
     <string name="Login_boton">Login</string>
-    <string name="SignUp_boton">Sign Up</string>
+    <string name="signUp_hint">New..? Sign up here</string>
+
+    <string name="SignUp_boton"><u>Sign Up</u></string>
+    <string name="login_hint">Already have an account ? Login</string>
+
     <string name="contrasena">Password</string>
-    <string name="Registro">Registre</string>
-    <string name="Bienvenido">Welcome</string>
-    <string name="SeleccionLibro">Select a book to star reading</string>
+    <string name="Registro">Mozek</string>
+
+    <string name="Bienvenido">Welcome, </string>
+
+    <string name="SeleccionLibro">Select a book to start reading</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
-    <string name="SeleccionTiempo">Finish before</string>
-    <string name="HorarioPreferente">Prefered reading hour</string>
+
+    <string name="SeleccionTiempo">Finish before...</string>
+    <string name="HorarioPreferente">Preferred reading hour</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_admin">Admin</string>
+    <string name="title_reader">Reader</string>
+    <string name="title_library">Library</string>
 </resources>
