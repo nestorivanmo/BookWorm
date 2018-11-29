@@ -25,6 +25,7 @@ public class InitialConfigActivity extends AppCompatActivity {
 
     public void transitionToMainAppWindow(){
         goToMainAppButton = findViewById(R.id.goToMainAppButton_InitalConfig);
+
         goToMainAppButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,6 +33,7 @@ public class InitialConfigActivity extends AppCompatActivity {
                 startActivity(goToMainAppWindowIntent);
             }
         });
+        
     }
 
 }
