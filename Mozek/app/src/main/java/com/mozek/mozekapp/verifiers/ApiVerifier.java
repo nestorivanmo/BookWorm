@@ -2,7 +2,7 @@ package com.mozek.mozekapp.verifiers;
 
 import android.os.Build;
 
-public class ApiVerifier {
+public class ApiVerifier extends Verifier{
 
     public boolean verifySystemApi(int apiNumber){
 
