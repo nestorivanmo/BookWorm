@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "839568641445-ufeo646tmbjl6o4gdi28400ga5243b2i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mozek.mozekapp",
+            "certificate_hash": "d94b53e26fa9912fe1b8f44cba3b4fb00bd5b281"
+          }
+        },
+        {
           "client_id": "839568641445-kbqdk8kt5c8q8rkdb70cdj6t34p3jr00.apps.googleusercontent.com",
           "client_type": 3
         }
