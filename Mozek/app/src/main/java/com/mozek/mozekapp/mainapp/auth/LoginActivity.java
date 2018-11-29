@@ -1,4 +1,4 @@
-package com.mozek.mozekapp.auth;
+package com.mozek.mozekapp.mainapp.auth;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.mozek.mozekapp.config.InitialConfigActivity;
+import com.mozek.mozekapp.mainapp.config.InitialConfigActivity;
 import com.mozek.mozekapp.R;
 
 public class LoginActivity extends AppCompatActivity {
