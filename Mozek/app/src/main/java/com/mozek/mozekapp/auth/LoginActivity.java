@@ -5,12 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.mozek.mozekapp.config.InitialConfigActivity;
 import com.mozek.mozekapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
     Button ButSignUp, ButLogin;
+    EditText textEmail,textPassword;
+    private FirebaseAuth fireAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
