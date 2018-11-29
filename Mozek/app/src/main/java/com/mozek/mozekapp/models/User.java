@@ -3,13 +3,12 @@ package com.mozek.mozekapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.lang.reflect.Array;
 
 public class User implements Parcelable{
 
-    String username;
-    String email;
-    String password;
+    private String username;
+    private String email;
+    private String password;
 
     public User(Parcel in) {
         this.username = in.readString();
@@ -52,6 +51,5 @@ public class User implements Parcelable{
     public String toString() {
         return "User{'username': "+this.username+", 'email': "+this.email+"}";
     }
-
 
 }

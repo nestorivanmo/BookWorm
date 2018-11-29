@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.mozek.mozekapp.R;
@@ -12,6 +13,8 @@ import com.mozek.mozekapp.models.User;
 
 
 public class InitialConfigActivity extends AppCompatActivity {
+
+    public static final String TAG = "InitialConfigActivity";
 
     FloatingActionButton goToMainAppButton;
 
@@ -22,6 +25,7 @@ public class InitialConfigActivity extends AppCompatActivity {
 
         Bundle data = getIntent().getExtras();
         User user = (User) data.getParcelable("user");
+        Log.d(TAG, "onCreate: " + user.toString());
 
     }
 

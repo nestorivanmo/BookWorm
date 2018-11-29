@@ -62,8 +62,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
     public  void login(String email,String password) {
         try {
             if (authVerifier.verifyInfoLogin(this, email, password) ) {
@@ -82,8 +80,6 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
 
                                 authVerifier.displayError(LoginActivity.this,Errors_Login.ERROR_04_error );
-
-
 
                         }
                         verifiableUsually.dismiss();
