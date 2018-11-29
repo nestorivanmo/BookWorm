@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".config.InitialConfigActivity"
     android:orientation="vertical"
-    android:background="@color/FondoGris">
+    android:background="@color/colorPrimary">
 
     <TextView
         android:id="@+id/Textview5"
@@ -77,12 +77,12 @@
         android:textSize="20sp"
         android:textStyle="italic" />
 
-    <Button
-        android:id="@+id/botonredondo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="end"
-        android:background="@drawable/redondeado"
-        />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/goToMainAppButton_InitalConfig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_chevron_right_black_24dp"
+        android:layout_margin="16dp"/>
 
 </LinearLayout>
