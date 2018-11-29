@@ -70,7 +70,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+<<<<<<< HEAD
     public  void login(String email, String password) {
+=======
+    public  void login(String email,String password) {
+>>>>>>> ea21df0aa2a86735b56cd25b033dcce8c61755ae
         try {
             if (authVerifier.verifyInfoLogin(this, email, password) ) {
                 proUser.setMessage(Errors_Login.ERROR_03_validatingU);
@@ -82,15 +86,13 @@ public class LoginActivity extends AppCompatActivity {
 
                             authVerifier.displaySuccess(LoginActivity.this, Errors_Login.ERROR_05_welcome);
 
-                            // TODO: 11/29/18 Create user here
-                                Intent goToConfigIntent = new Intent(LoginActivity.this, InitialConfigActivity.class);//InitialConfig
+                                Intent goToConfigIntent = new Intent(LoginActivity.this, InitialConfigActivity.class);
+
                                 startActivity(goToConfigIntent);
 
                         } else {
 
                                 authVerifier.displayError(LoginActivity.this,Errors_Login.ERROR_04_error );
-
-
 
                         }
                         proUser.dismiss();

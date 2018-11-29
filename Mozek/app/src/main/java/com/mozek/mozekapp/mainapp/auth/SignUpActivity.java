@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -87,7 +86,6 @@ public class SignUpActivity extends AppCompatActivity {
                             Intent intentSign2 = new Intent(SignUpActivity.this, InitialConfigActivity.class);
                             intentSign2.putExtra("user", new User(username, email, password));
                             startActivity(intentSign2);
-
 
                         } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
