@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,7 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String email= TextEmail.getText().toString().trim();
                 String password=TextPassword.getText().toString().trim();
                 String username = TextUsername.getText().toString().trim();
-                registrarUsuario(username,email,password);
+                registerUser(username,email,password);
 
             }
         });
@@ -71,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    private void registrarUsuario(String username, String email,String password){
+    private void registerUser(String username, String email, String password){
 
         try {
             if (authVerifier.verifyInfo(this, username, email, password) ) {
@@ -83,14 +82,19 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(SignUpActivity.this, Errors_Sign_UP.ERROR_04_RecordS_, Toast.LENGTH_LONG).show();
+
+                            authVerifier.displaySuccess(SignUpActivity.this, Errors_Sign_UP.ERROR_04_RecordS_);
+
+                            // TODO: 11/29/18 Create user here 
                             Intent intentSign2 = new Intent(SignUpActivity.this, InitialConfigActivity.class);//InitialConfigActivity
                             startActivity(intentSign2);
                         } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(SignUpActivity.this, Errors_Sign_UP.ERROR_05__UserAE, Toast.LENGTH_SHORT).show();
+                                authVerifier.displayError(SignUpActivity.this, Errors_Sign_UP.ERROR_05__UserAE);
+
                             } else {
-                                Toast.makeText(SignUpActivity.this, Errors_Sign_UP.ERROR_06_recordFailure, Toast.LENGTH_SHORT).show();
+                                authVerifier.displayError(SignUpActivity.this, Errors_Sign_UP.ERROR_06_recordFailure);
+
                             }
 
                         }
