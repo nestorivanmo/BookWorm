@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mozek.mozekapp.fairules.Errors_Login;
+import com.mozek.mozekapp.mainapp.app.MainActivity;
 import com.mozek.mozekapp.mainapp.config.InitialConfigActivity;
 
 import com.mozek.mozekapp.R;
@@ -36,6 +37,18 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findGraphicElements();
+        authStateListener= new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user =firebaseAuth.getCurrentUser();
+                if(user!=null){
+                    Intent goToConfigIntent = new Intent(LoginActivity.this,MainActivity.class);
+
+                    startActivity(goToConfigIntent);
+
+                }
+            }
+        };
         activateButtons();
     }
 
@@ -48,8 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton=findViewById(R.id.loginButton_Login);
 
     }
-
-
 
     private void activateButtons(){
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -69,12 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-<<<<<<< HEAD
-    public  void login(String email, String password) {
-=======
     public  void login(String email,String password) {
->>>>>>> ea21df0aa2a86735b56cd25b033dcce8c61755ae
         try {
             if (authVerifier.verifyInfoLogin(this, email, password) ) {
                 proUser.setMessage(Errors_Login.ERROR_03_validatingU);
@@ -86,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             authVerifier.displaySuccess(LoginActivity.this, Errors_Login.ERROR_05_welcome);
 
-                                Intent goToConfigIntent = new Intent(LoginActivity.this, InitialConfigActivity.class);
+                                Intent goToConfigIntent = new Intent(LoginActivity.this, SignUpActivity.class);
 
                                 startActivity(goToConfigIntent);
 
@@ -108,4 +114,17 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(authStateListener!=null){
+            FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
+        }
+    }
 }
