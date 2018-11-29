@@ -70,13 +70,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-<<<<<<< HEAD
-    public  void login(String email, String password) {
-=======
     public  void login(String email,String password) {
->>>>>>> ea21df0aa2a86735b56cd25b033dcce8c61755ae
+
+
         try {
-            if (authVerifier.verifyInfoLogin(this, email, password) ) {
+           if (authVerifier.verifyInfoLogin(this, email, password) ) {
                 proUser.setMessage(Errors_Login.ERROR_03_validatingU);
                 proUser.show();
                 fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
