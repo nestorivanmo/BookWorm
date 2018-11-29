@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseUser;
 import com.mozek.mozekapp.exceptions.AuthException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,10 +25,11 @@ import com.mozek.mozekapp.verifiers.AuthVerifier;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private ProgressDialog proUser;
     private Button signUpButton, loginButton; //lowerCamelCase -- atributos  UpperCamelCase -- clases
     private EditText emailEditText, passwordEditText;
     private FirebaseAuth fireAuth;
-    public ProgressDialog verifiableUsually;
+    private  FirebaseAuth.AuthStateListener authStateListener;
     private AuthVerifier authVerifier = new AuthVerifier();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,14 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailET_Login);
         passwordEditText = findViewById(R.id.passwordET_Login);
         fireAuth=FirebaseAuth.getInstance();
+        proUser=new ProgressDialog(this);
         signUpButton= findViewById(R.id.changeToSignUpButton_Login);
         loginButton=findViewById(R.id.loginButton_Login);
+
     }
+
+
+
     private void activateButtons(){
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +70,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
-    public  void login(String email,String password) {
+    public  void login(String email, String password) {
         try {
             if (authVerifier.verifyInfoLogin(this, email, password) ) {
-                verifiableUsually.setMessage(Errors_Login.ERROR_03_validatingU);
-                verifiableUsually.show();
+                proUser.setMessage(Errors_Login.ERROR_03_validatingU);
+                proUser.show();
                 fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
@@ -77,8 +83,9 @@ public class LoginActivity extends AppCompatActivity {
                             authVerifier.displaySuccess(LoginActivity.this, Errors_Login.ERROR_05_welcome);
 
                             // TODO: 11/29/18 Create user here
-                                Intent goToConfigIntent = new Intent(LoginActivity.this, InitialConfigActivity.class);
+                                Intent goToConfigIntent = new Intent(LoginActivity.this, InitialConfigActivity.class);//InitialConfig
                                 startActivity(goToConfigIntent);
+
                         } else {
 
                                 authVerifier.displayError(LoginActivity.this,Errors_Login.ERROR_04_error );
@@ -86,8 +93,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
                         }
-                        verifiableUsually.dismiss();
+                        proUser.dismiss();
                     }
+
+
+
                 });
             }
 
