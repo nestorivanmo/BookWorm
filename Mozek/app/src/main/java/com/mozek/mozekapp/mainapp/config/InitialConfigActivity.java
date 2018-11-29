@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.mozek.mozekapp.R;
 import com.mozek.mozekapp.mainapp.app.MainActivity;
+import com.mozek.mozekapp.models.User;
 
 
 public class InitialConfigActivity extends AppCompatActivity {
@@ -19,7 +20,8 @@ public class InitialConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
 
-        //transitionToMainAppWindow();
+        Bundle data = getIntent().getExtras();
+        User user = (User) data.getParcelable("user");
 
     }
 

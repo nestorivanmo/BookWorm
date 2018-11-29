@@ -19,6 +19,7 @@ import com.mozek.mozekapp.fairules.Errors_Sign_UP;
 import com.mozek.mozekapp.mainapp.config.InitialConfigActivity;
 
 import com.mozek.mozekapp.R;
+import com.mozek.mozekapp.models.User;
 import com.mozek.mozekapp.verifiers.AuthVerifier;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -70,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    private void registerUser(String username, String email, String password){
+    private void registerUser(final String username, final String email, final String password){
 
         try {
             if (authVerifier.verifyInfo(this, username, email, password) ) {
@@ -85,16 +86,17 @@ public class SignUpActivity extends AppCompatActivity {
 
                             authVerifier.displaySuccess(SignUpActivity.this, Errors_Sign_UP.ERROR_04_RecordS_);
 
-                            // TODO: 11/29/18 Create user here 
-                            Intent intentSign2 = new Intent(SignUpActivity.this, InitialConfigActivity.class);//InitialConfigActivity
+                            Intent intentSign2 = new Intent(SignUpActivity.this, InitialConfigActivity.class);
+                            intentSign2.putExtra("user", new User(username, email, password));
                             startActivity(intentSign2);
+
+
                         } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 authVerifier.displayError(SignUpActivity.this, Errors_Sign_UP.ERROR_05__UserAE);
 
                             } else {
                                 authVerifier.displayError(SignUpActivity.this, Errors_Sign_UP.ERROR_06_recordFailure);
-
                             }
 
                         }
