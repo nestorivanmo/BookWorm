@@ -22,7 +22,7 @@ public class InitialConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
 
-        transitionToMainAppWindow();
+        //transitionToMainAppWindow();
 
     }
 
