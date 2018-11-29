@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".config.InitialConfigActivity"
+    tools:context=".mainapp.config.InitialConfigActivity"
     android:orientation="vertical"
     android:background="@color/colorPrimary">
 
@@ -110,7 +110,8 @@
                 android:textColorHint="@color/Amarillo"
                 android:textColor="@color/Amarillo"
                 android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:textSize="30sp"
+                android:inputType="number"/>
 
             <TextView
                 android:id="@+id/dots_TV_InitialConfig"
@@ -131,7 +132,8 @@
                 android:textColorHint="@color/Amarillo"
                 android:textColor="@color/Amarillo"
                 android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:textSize="30sp"
+                android:inputType="number"/>
 
 
         </LinearLayout>

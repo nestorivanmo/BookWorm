@@ -1,11 +1,11 @@
-package com.mozek.mozekapp.app;
+package com.mozek.mozekapp.mainapp.app;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+
 import com.mozek.mozekapp.R;
 
 public class MainActivity extends AppCompatActivity {

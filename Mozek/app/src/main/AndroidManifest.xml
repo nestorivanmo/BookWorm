@@ -9,17 +9,17 @@
         android:roundIcon="@mipmap/ic_fab_next_window_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".auth.LoginActivity">
+        <activity android:name=".mainapp.auth.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".auth.SignUpActivity" />
-        <activity android:name=".config.InitialConfigActivity" />
+        <activity android:name=".mainapp.auth.SignUpActivity" />
+        <activity android:name=".mainapp.config.InitialConfigActivity" />
         <activity
-            android:name=".app.MainActivity"
+            android:name=".mainapp.app.MainActivity"
             android:label="@string/title_activity_main">
 
         </activity>

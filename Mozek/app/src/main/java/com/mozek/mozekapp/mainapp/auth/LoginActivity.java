@@ -1,4 +1,4 @@
-package com.mozek.mozekapp.auth;
+package com.mozek.mozekapp.mainapp.auth;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -13,8 +13,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+<<<<<<< HEAD:Mozek/app/src/main/java/com/mozek/mozekapp/auth/LoginActivity.java
 import com.google.firebase.auth.FirebaseUser;
 import com.mozek.mozekapp.config.InitialConfigActivity;
+=======
+import com.mozek.mozekapp.mainapp.config.InitialConfigActivity;
+>>>>>>> be5834c74d10781a371fbed058479bd13a40aa94:Mozek/app/src/main/java/com/mozek/mozekapp/mainapp/auth/LoginActivity.java
 import com.mozek.mozekapp.R;
 
 public class LoginActivity extends AppCompatActivity {
