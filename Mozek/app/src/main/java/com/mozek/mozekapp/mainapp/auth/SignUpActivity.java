@@ -15,36 +15,49 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.mozek.mozekapp.exceptions.AuthException;
 import com.mozek.mozekapp.fairules.Errors_Sign_UP;
 import com.mozek.mozekapp.mainapp.config.InitialConfigActivity;
 
 import com.mozek.mozekapp.R;
+import com.mozek.mozekapp.verifiers.AuthVerifier;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private Button ButSignUp2, ButLogin2;
-    private EditText TextEmail;
-    private EditText TextPassword;
+    private EditText TextEmail, TextPassword, TextUsername;
     private ProgressDialog progressRegister;
     private FirebaseAuth firebaseAuth;
+    private AuthVerifier authVerifier = new AuthVerifier();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        findGraphicElements();
+
+        activateButtons();
+    }
+
+    private void findGraphicElements(){
         ButSignUp2=findViewById(R.id.signUpButton_SignUp);
         ButLogin2=findViewById(R.id.changeToLoginButton_SignUp);
         firebaseAuth= FirebaseAuth.getInstance();
         TextEmail= findViewById(R.id.emailET_SignUp);
         TextPassword=  findViewById(R.id.passwordET_SignUp) ;
+        TextUsername = findViewById(R.id.usernameET_SignUp);
         progressRegister=new ProgressDialog(this);
+    }
 
+    private void activateButtons(){
         ButSignUp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email= TextEmail.getText().toString().trim();
                 String password=TextPassword.getText().toString().trim();
-                registrarUsuario(email,password);
+                String username = TextUsername.getText().toString().trim();
+                registrarUsuario(username,email,password);
 
             }
         });
@@ -58,30 +71,25 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
+    private void registrarUsuario(String username, String email,String password){
 
-    private void registrarUsuario(String email,String password){
-        if (TextUtils.isEmpty(email)){
-            Toast.makeText(this,Errors_Sign_UP.ERROR_01_missing_mail,Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(TextUtils.isEmpty((password))){
-            Toast.makeText(this,Errors_Sign_UP.ERROR_02_missing_password,Toast.LENGTH_LONG).show();
-            return;
-        }
+        try {
+            if (authVerifier.verifyInfo(this, username, email, password) ) {
 
-        progressRegister.setMessage(Errors_Sign_UP.ERROR_03_performingR);
-        progressRegister.show();
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                progressRegister.setMessage(Errors_Sign_UP.ERROR_03_performingR);
+                progressRegister.show();
+
+                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(SignUpActivity.this,Errors_Sign_UP.ERROR_04_RecordS_,Toast.LENGTH_LONG).show();
-                            Intent intentSign2= new Intent(SignUpActivity.this,InitialConfigActivity.class);//InitialConfigActivity
+                        if (task.isSuccessful()) {
+                            Toast.makeText(SignUpActivity.this, Errors_Sign_UP.ERROR_04_RecordS_, Toast.LENGTH_LONG).show();
+                            Intent intentSign2 = new Intent(SignUpActivity.this, InitialConfigActivity.class);//InitialConfigActivity
                             startActivity(intentSign2);
-                        }else{
+                        } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 Toast.makeText(SignUpActivity.this, Errors_Sign_UP.ERROR_05__UserAE, Toast.LENGTH_SHORT).show();
-                            }else{
+                            } else {
                                 Toast.makeText(SignUpActivity.this, Errors_Sign_UP.ERROR_06_recordFailure, Toast.LENGTH_SHORT).show();
                             }
 
@@ -89,5 +97,10 @@ public class SignUpActivity extends AppCompatActivity {
                         progressRegister.dismiss();
                     }
                 });
+            }
+
+        }catch (AuthException e){
+            //authVerifier.displayError(this,Errors_Sign_UP.ERROR_06_recordFailure );
+        }
     }
 }

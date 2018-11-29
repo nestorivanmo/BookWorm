@@ -21,7 +21,7 @@
         android:textStyle="normal" />
 
     <EditText
-        android:id="@+id/usernameET_EditText"
+        android:id="@+id/usernameET_SignUp"
         android:layout_width="match_parent"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="40dp"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/usernameET_EditText"
+        android:layout_below="@+id/usernameET_SignUp"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="40dp"
         android:paddingLeft="10dp"
