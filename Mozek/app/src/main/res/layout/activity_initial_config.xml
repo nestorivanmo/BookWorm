@@ -9,80 +9,153 @@
     android:background="@color/colorPrimary">
 
     <TextView
-        android:id="@+id/Textview5"
-
-        android:layout_width="276dp"
-        android:layout_height="67dp"
-        android:layout_gravity="center"
+        android:id="@+id/initialConfigTitle_TV_InitialConfig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/title_vertical_margin"
+        android:layout_gravity="start"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="@string/Bienvenido"
         android:textColor="@color/Amarillo"
-        android:textSize="60sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/Textview6"
+    <RelativeLayout
+        android:id="@+id/selectBook_RelativeLayout_InitialConfig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/selectBook_TV_initialConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/SeleccionLibro"
+            android:textColor="@color/Blanco"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/selectBook_Spinner_InitialConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/selectBook_TV_initialConfig"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/selectDate_RelativeLayout_InitialConfig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp">
+
+        <TextView
+            android:id="@+id/selectDate_TV_InitialConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/SeleccionTiempo"
+            android:textColor="@color/Blanco"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/selectDate_Spinner_InitialConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/selectDate_TV_InitialConfig"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/preferredHour_RelativeLayout_InitialConfig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp">
+
+        <TextView
+            android:id="@+id/preferredHour_TV_InitialConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/HorarioPreferente"
+            android:textColor="@color/Blanco"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/hour_minute_LinearLayout_InitialConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/preferredHour_TV_InitialConfig"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true">
+
+            <EditText
+                android:id="@+id/hourPicker_ET_InitialConfig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
+                android:hint="09"
+                android:textColorHint="@color/Amarillo"
+                android:textColor="@color/Amarillo"
+                android:textStyle="bold"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/dots_TV_InitialConfig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textColor="@color/Amarillo"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/minutePicker_ET_InitialConfig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:hint="00"
+                android:textColorHint="@color/Amarillo"
+                android:textColor="@color/Amarillo"
+                android:textStyle="bold"
+                android:textSize="30sp"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/fab_RelativeLayout_InitialConfig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="40dp"
-        android:text="@string/SeleccionLibro"
-        android:textColor="@color/Blanco"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-
-    <TextView
-        android:id="@+id/Textview7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:text="@string/SeleccionTiempo"
-        android:textColor="@color/Blanco"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-    />
-
-    <TextView
-        android:id="@+id/Textview8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:text="@string/HorarioPreferente"
-        android:textColor="@color/Blanco"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <EditText
-
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="0dp"
-        android:background="@color/Blanco"
-        android:hint="09:00"
-        android:inputType="text"
-        android:textSize="20sp"
-        android:textStyle="italic" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/goToMainAppButton_InitalConfig"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_chevron_right_black_24dp"
-        android:layout_margin="16dp"/>
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/goToMainAppButton_InitalConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"
+            android:layout_margin="16dp"/>
+
+    </RelativeLayout>
+
 
 </LinearLayout>

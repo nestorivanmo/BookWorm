@@ -13,10 +13,13 @@
 
     <string name="contrasena">Password</string>
     <string name="Registro">Mozek</string>
-    <string name="Bienvenido">Welcome</string>
+
+    <string name="Bienvenido">Welcome, </string>
+
     <string name="SeleccionLibro">Select a book to start reading</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
-    <string name="SeleccionTiempo">Finish before</string>
+
+    <string name="SeleccionTiempo">Finish before...</string>
     <string name="HorarioPreferente">Preferred reading hour</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_admin">Admin</string>
