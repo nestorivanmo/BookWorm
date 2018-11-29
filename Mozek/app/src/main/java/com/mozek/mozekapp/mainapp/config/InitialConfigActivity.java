@@ -33,7 +33,7 @@ public class InitialConfigActivity extends AppCompatActivity {
                 startActivity(goToMainAppWindowIntent);
             }
         });
-        
+
     }
 
 }
