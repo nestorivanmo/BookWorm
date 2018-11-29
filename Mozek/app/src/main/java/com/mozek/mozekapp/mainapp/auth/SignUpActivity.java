@@ -21,38 +21,32 @@ import com.mozek.mozekapp.R;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    Button ButSignUp2, ButLogin2;
-    EditText TextEmail;
-    EditText TextPassword;
-    ProgressDialog progressRegister;
-
+    private Button ButSignUp2, ButLogin2;
+    private EditText TextEmail;
+    private EditText TextPassword;
+    private ProgressDialog progressRegister;
     private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        //INSTANCIAS
-        ButSignUp2=(Button)findViewById(R.id.signUpButton_SignUp);
-        ButLogin2=(Button)findViewById(R.id.changeToLoginButton_SignUp);
 
-        //INCILIZANDO FIREBASE
-            firebaseAuth= FirebaseAuth.getInstance();
-
-
-            //Refrenciamos los views
-        TextEmail=(EditText) findViewById(R.id.emailET_SignUp);
-        TextPassword= (EditText) findViewById(R.id.passwordET_SignUp) ;
+        ButSignUp2=findViewById(R.id.signUpButton_SignUp);
+        ButLogin2=findViewById(R.id.changeToLoginButton_SignUp);
+        firebaseAuth= FirebaseAuth.getInstance();
+        TextEmail= findViewById(R.id.emailET_SignUp);
+        TextPassword=  findViewById(R.id.passwordET_SignUp) ;
         progressRegister=new ProgressDialog(this);
 
-        //LOGICA DE BOTON
         ButSignUp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registrarUsuario();
+                String email= TextEmail.getText().toString().trim();
+                String password=TextPassword.getText().toString().trim();
+                registrarUsuario(email,password);
 
             }
         });
-        //LOGICA DE BOTON
         ButLogin2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,10 +57,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    private void registrarUsuario(){
-        String email= TextEmail.getText().toString().trim();
-        String password=TextPassword.getText().toString().trim();
 
+    private void registrarUsuario(String email,String password){
         if (TextUtils.isEmpty(email)){
             Toast.makeText(this,"Se debe ingresar un email",Toast.LENGTH_LONG).show();
             return;
@@ -75,16 +67,15 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(this,"Se debe ingresar una contraseña",Toast.LENGTH_LONG).show();
             return;
         }
+
         progressRegister.setMessage("Realizando Registro...");
         progressRegister.show();
-
-        //Creando un nuevo usuario
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(SignUpActivity.this,"Registro Exitoso",Toast.LENGTH_LONG).show();
-                            Intent intentSign2= new Intent(SignUpActivity.this,InitialConfigActivity.class);
+                            Intent intentSign2= new Intent(SignUpActivity.this,InitialConfigActivity.class);//InitialConfigActivity
                             startActivity(intentSign2);
                         }else{
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {

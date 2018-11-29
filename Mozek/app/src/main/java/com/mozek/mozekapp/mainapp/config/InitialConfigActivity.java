@@ -3,7 +3,6 @@ package com.mozek.mozekapp.mainapp.config;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 
 import com.mozek.mozekapp.R;
 
@@ -17,7 +16,7 @@ public class InitialConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
 
-        transitionToMainAppWindow();
+        //transitionToMainAppWindow();
 
     }
 
