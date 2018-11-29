@@ -60,11 +60,11 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         if(TextUtils.isEmpty((password))){
-            Toast.makeText(this,"Se debe ingresar una contraseña",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,Errors_Login.ERROR_02_missing_password,Toast.LENGTH_LONG).show();
             return;
         }
 
-        verifiableUsually.setMessage("44");
+        verifiableUsually.setMessage("Velidando Usuario");
         verifiableUsually.show();
 
         fireAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
