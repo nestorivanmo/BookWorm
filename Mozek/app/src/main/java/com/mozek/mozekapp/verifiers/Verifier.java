@@ -19,4 +19,9 @@ public class Verifier {
     public void displayError(Context activityContext, String errorMsg) {
         Toast.makeText(activityContext, errorMsg ,Toast.LENGTH_LONG).show();
     }
+
+    public void displaySuccess(Context activityContext, String errorMsg) {
+        Toast.makeText(activityContext, errorMsg ,Toast.LENGTH_LONG).show();
+    }
+
 }
