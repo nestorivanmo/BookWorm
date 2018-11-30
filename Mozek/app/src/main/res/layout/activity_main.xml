@@ -23,5 +23,13 @@
         app:menu="@menu/navigation"
         />
 
+    <Button
+        android:id="@+id/butoonLogi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:background="@color/colorPrimary"
+        />
+
 
 </android.support.constraint.ConstraintLayout>
