@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.mozek.mozekapp.exceptions.AuthException;
@@ -32,21 +31,26 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth fireAuth;
     private  FirebaseAuth.AuthStateListener authStateListener;
     private AuthVerifier authVerifier = new AuthVerifier();
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findGraphicElements();
+
         authStateListener= new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user =firebaseAuth.getCurrentUser();
-                if(user!=null){
-                    Intent goToConfigIntent = new Intent(LoginActivity.this,MainActivity.class);
 
+                if(user!=null) {
+                    Intent goToConfigIntent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(goToConfigIntent);
 
                 }
+
+
+
+
             }
         };
         activateButtons();
@@ -126,8 +130,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if(authStateListener!=null){
-            FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
+       if(authStateListener!=null){
+         FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
         }
     }
 }
