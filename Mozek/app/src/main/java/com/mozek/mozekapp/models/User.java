@@ -6,9 +6,9 @@ import android.os.Parcelable;
 
 public class User implements Parcelable{
 
-    private String username;
-    private String email;
-    private String password;
+    public String username;
+    public String email;
+    public String password;
 
     public User(){
     }
