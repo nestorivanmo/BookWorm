@@ -1,65 +1,37 @@
-package com.mozek.mozekapp.mainapp.config;
+package com.mozek.myapplicationfirebasetest;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.mozek.mozekapp.R;
-import com.mozek.mozekapp.mainapp.app.MainActivity;
-import com.mozek.mozekapp.models.User;
 
 import java.util.HashMap;
 import java.util.Map;
 
+public class MainActivity extends AppCompatActivity {
 
-public class InitialConfigActivity extends AppCompatActivity {
-
-    public static final String TAG = "InitialConfigActivity";
-
-    FloatingActionButton goToMainAppButton;
-    User user;
-
-    private FirebaseFirestore db;
-    // TODO: 11/29/18 update Welcome, user message in XML file
+    private static final String TAG = "MAINACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_initial_config);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        user = receivedUser();
-        transitionToMainAppWindow();
-    }
-
-
-    public User receivedUser(){
-        Bundle data = getIntent().getExtras();
-        User user = (User) data.getParcelable("user");
-        return user;
-    }
-
-    public void transitionToMainAppWindow(){
-        goToMainAppButton = findViewById(R.id.goToMainAppButton_InitalConfig);
-
-        goToMainAppButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(InitialConfigActivity.this, "changing now...", Toast.LENGTH_LONG).show();
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -68,7 +40,7 @@ public class InitialConfigActivity extends AppCompatActivity {
                 user.put("last", "Lovelace");
                 user.put("born", 1815);
 
-                db.collection("usuarios")
+                db.collection("users")
                         .add(user)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
@@ -83,10 +55,8 @@ public class InitialConfigActivity extends AppCompatActivity {
                             }
                         });
 
+                Toast.makeText(MainActivity.this, "Adding user to DB", Toast.LENGTH_LONG).show();
 
-
-                //Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
-                //startActivity(goToMainAppWindowIntent);
             }
         });
 
