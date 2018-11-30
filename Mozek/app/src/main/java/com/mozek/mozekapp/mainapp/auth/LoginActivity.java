@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             authVerifier.displaySuccess(LoginActivity.this, Errors_Login.ERROR_05_welcome);
 
-                                Intent goToConfigIntent = new Intent(LoginActivity.this, SignUpActivity.class);
+                                Intent goToConfigIntent = new Intent(LoginActivity.this, MainActivity.class);
 
                                 startActivity(goToConfigIntent);
 
