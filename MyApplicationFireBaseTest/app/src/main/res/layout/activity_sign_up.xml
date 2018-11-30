@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainapp.auth.SignUpActivity"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/registerTV_SignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/title_vertical_margin"
+        android:text="@string/Registro"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/Amarillo"
+        android:textSize="60sp"
+        android:textStyle="normal" />
+
+    <EditText
+        android:id="@+id/usernameET_SignUp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:paddingLeft="10dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/registerTV_SignUp"
+        android:background="@color/Blanco"
+        android:hint="@string/usuario"
+        android:inputType="text"
+        android:textSize="20sp"
+        />
+
+    <EditText
+        android:id="@+id/emailET_SignUp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/usernameET_SignUp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:paddingLeft="10dp"
+        android:hint="@string/correo"
+        android:inputType="textEmailAddress"
+        android:textSize="20sp"
+        android:background="@color/Blanco" />
+
+    <EditText
+        android:id="@+id/passwordET_SignUp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/emailET_SignUp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:paddingLeft="10dp"
+        android:hint="@string/contrasena"
+        android:background="@color/Blanco"
+        android:inputType="textPassword"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/signUpButton_SignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordET_SignUp"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:baselineAligned="false"
+        android:layout_gravity="center"
+        android:text="@string/SignUp_boton"
+        android:textStyle="bold"
+        android:backgroundTint="@color/Amarillo"/>
+
+    <Button
+        android:id="@+id/changeToLoginButton_SignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signUpButton_SignUp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:hint="@string/login_hint"
+        android:textColorHint="@color/Amarillo"
+        />
+
+</RelativeLayout>

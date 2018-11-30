@@ -83,8 +83,6 @@ public class InitialConfigActivity extends AppCompatActivity {
                             }
                         });
 
-
-
                 //Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
                 //startActivity(goToMainAppWindowIntent);
             }

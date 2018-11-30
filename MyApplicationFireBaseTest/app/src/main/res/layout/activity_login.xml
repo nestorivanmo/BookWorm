@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainapp.auth.LoginActivity"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    >
+
+    <TextView
+        android:id="@+id/loginTV_Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/title_vertical_margin"
+        android:text="@string/Mozek"
+        android:textStyle="normal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textSize="60sp"
+        android:textColor="@color/Amarillo"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginTV_Login"
+        android:layout_marginTop="40dp"
+        android:layout_centerInParent="true">
+
+        <EditText
+            android:id="@+id/emailET_Login"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:paddingLeft="10dp"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/correo"
+            android:textSize="20sp"
+            android:background="@color/Blanco"
+            android:inputType="textEmailAddress"/>
+
+        <EditText
+            android:id="@+id/passwordET_Login"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/emailET_Login"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="40dp"
+            android:paddingLeft="10dp"
+            android:hint="@string/contrasena"
+            android:textSize="20sp"
+            android:background="@color/Blanco"
+            android:inputType="textPassword" />
+
+
+        <Button
+            android:id="@+id/loginButton_Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passwordET_Login"
+            android:layout_marginTop="25dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/Login_boton"
+
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:backgroundTint="@color/Amarillo"
+            />
+        <Button
+            android:id="@+id/changeToSignUpButton_Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/loginButton_Login"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/signUp_hint"
+            android:textColorHint="@color/Amarillo"
+            android:background="@color/colorPrimary"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
