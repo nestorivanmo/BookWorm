@@ -37,7 +37,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         findGraphicElements();
 
+       /* authStateListener= new FirebaseAuth.AuthStateListener() {
+=======
+
         authStateListener= new FirebaseAuth.AuthStateListener() {
+>>>>>>> 929b041f217ad38c3c7b056d6b8703351c1b4f2d
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user =firebaseAuth.getCurrentUser();
@@ -52,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
             }
-        };
+        };*/
         activateButtons();
     }
 
@@ -121,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
@@ -133,5 +137,5 @@ public class LoginActivity extends AppCompatActivity {
        if(authStateListener!=null){
          FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
         }
-    }
+    }*/
 }
