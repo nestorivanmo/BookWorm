@@ -41,7 +41,6 @@ public class InitialConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
 
-        user = receivedUser();
         transitionToMainAppWindow();
     }
 
@@ -63,13 +62,10 @@ public class InitialConfigActivity extends AppCompatActivity {
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                Map<String, Object> user = new HashMap<>();
-                user.put("first", "Ada");
-                user.put("last", "Lovelace");
-                user.put("born", 1815);
+                User currentUser = receivedUser();
 
                 db.collection("cientificos")
-                        .add(user)
+                        .add(currentUser)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
