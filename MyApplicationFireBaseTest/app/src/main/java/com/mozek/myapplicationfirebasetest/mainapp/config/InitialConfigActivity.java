@@ -33,7 +33,6 @@ public class InitialConfigActivity extends AppCompatActivity {
     private User user;
     private FirebaseManager fbManager;
 
-    // TODO: 11/29/18 update Welcome, user message in XML file
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +59,7 @@ public class InitialConfigActivity extends AppCompatActivity {
             updateTitleTextView(user.getUsername(), true);
 
             try {
+
                 fbManager.addUserToDb(user, TAG);
                 transitionToMainAppWindow();
 
@@ -68,6 +68,7 @@ public class InitialConfigActivity extends AppCompatActivity {
             }
 
         }else {
+
             updateTitleTextView("", false);
         }
 
@@ -107,8 +108,8 @@ public class InitialConfigActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
-                //startActivity(goToMainAppWindowIntent);
+                Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
+                startActivity(goToMainAppWindowIntent);
             }
         });
 

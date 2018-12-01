@@ -98,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
                             authVerifier.displaySuccess(SignUpActivity.this, Errors_Sign_UP.ERROR_04_RecordS_);
 
                             Intent intentSign2 = new Intent(SignUpActivity.this, InitialConfigActivity.class);
-                            intentSign2.putExtra("user", new User(username, email, password));
+                            intentSign2.putExtra("user", new User(username, email));
                             startActivity(intentSign2);
 
                         } else {

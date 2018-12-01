@@ -6,7 +6,6 @@
     android:background="@color/colorPrimary"
     tools:context=".mainapp.app.fragments.administratorBooksFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <Button
         android:id="@+id/logOutButton_AdminBooks_Fragment"
