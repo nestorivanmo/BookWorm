@@ -1,58 +1,75 @@
 package com.mozek.myapplicationfirebasetest.mainapp.app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.mozek.myapplicationfirebasetest.R;
-import com.mozek.myapplicationfirebasetest.mainapp.auth.LoginActivity;
-import com.mozek.myapplicationfirebasetest.mainapp.auth.SignUpActivity;
+import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.administratorBooksFragment;
+import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.bookShelfFragment;
+import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.digitalReaderFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private Button logOutButoon;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_admin:
 
-                    return true;
-                case R.id.navigation_reader:
+    private BottomNavigationView navigation;
+    private administratorBooksFragment adminBooksFrag;
+    private bookShelfFragment bookShelfFrag;
+    private digitalReaderFragment digitalReaderFrag;
 
-                    return true;
-                case R.id.navigation_library:
+    private FragmentManager manager = getSupportFragmentManager();
 
-                    return true;
-            }
-            return false;
-        }
-    };
+
+   
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        logOutButoon= findViewById(R.id.butoonLogi);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        logOutButoon.setOnClickListener(new View.OnClickListener() {
+       // getSupportFragmentManager().beginTransaction().add(R.id.main_frame,adminBooksFrag).commit();
+        adminBooksFrag= new administratorBooksFragment();
+        bookShelfFrag= new bookShelfFragment();
+        digitalReaderFrag= new digitalReaderFragment();
+        manager.beginTransaction().replace(R.id.main_frame,adminBooksFrag).addToBackStack(null).commit();
+        navigation = findViewById(R.id.navigation);
+
+
+
+        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
             @Override
-            public void onClick(View v) {
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                mAuth.signOut();
-                Intent intentLogOut= new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intentLogOut);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_admin:
+                       // adminBooksFrag= new administratorBooksFragment();
+                        manager.beginTransaction().replace(R.id.main_frame, adminBooksFrag).addToBackStack(null).commit();
+                        return true;
+                    case R.id.navigation_reader:
+                       // bookShelfFrag= new bookShelfFragment();
+                        manager.beginTransaction().replace(R.id.main_frame,digitalReaderFrag ).addToBackStack(null).commit();
+                        return true;
+                    case R.id.navigation_library:
+                        //digitalReaderFrag= new digitalReaderFragment();
+                        manager.beginTransaction().replace(R.id.main_frame,bookShelfFrag).addToBackStack(null).commit();
+
+                        return true;
+                }
+                return false;
             }
-        });
+
+       /* private void setFragment(Fragment fragment) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_frame,fragment);
+            fragmentTransaction.commit();
+        }*/
+        };
+
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
     }
 
 }
