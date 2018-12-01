@@ -17,6 +17,7 @@ import com.mozek.myapplicationfirebasetest.exceptions.RegisterToDBException;
 import com.mozek.myapplicationfirebasetest.exceptions.UserMissingException;
 import com.mozek.myapplicationfirebasetest.mainapp.app.MainActivity;
 import com.mozek.myapplicationfirebasetest.models.Book;
+import com.mozek.myapplicationfirebasetest.models.PreferredUserSettings;
 import com.mozek.myapplicationfirebasetest.models.User;
 import com.mozek.myapplicationfirebasetest.verifiers.InitialConfigVerifier;
 
@@ -33,7 +34,7 @@ public class InitialConfigActivity extends AppCompatActivity {
     private User user;
     private Book book;
     private FirebaseManager fbManager;
-    private InitialConfigVerifier verifier;
+    private InitialConfigVerifier verifier = new InitialConfigVerifier();
 
 
     @Override
@@ -45,21 +46,15 @@ public class InitialConfigActivity extends AppCompatActivity {
         activateSpinners();
 
         try {
-            user = receiveUser();
-            verifier.verifyInfo();
-            completeUser(user);
-            handleUser(user);
 
-        }catch (InitialConfigException e){
+            user = receiveUser();
+            updateUI();
+            transitionToMainAppWindow();
 
         }catch (UserMissingException e){
 
         }
 
-    }
-
-    private void completeUser(User user){
-        // TODO: 11/30/18 crear libro aqui y agregarlo a la lista de libros del usuario
     }
 
     private void activateSpinners(){
@@ -77,19 +72,29 @@ public class InitialConfigActivity extends AppCompatActivity {
     }
 
     private void getGraphicElements(){
+        goToMainAppButton = findViewById(R.id.goToMainAppButton_InitalConfig);
         bookSpinner = findViewById(R.id.selectBook_Spinner_InitialConfig);
         deadlineDateSpiner = findViewById(R.id.selectDate_Spinner_InitialConfig);
         hourET = findViewById(R.id.hourPicker_ET_InitialConfig);
         minuteET = findViewById(R.id.minutePicker_ET_InitialConfig);
     }
 
-    private void handleUser(User user) {
+    private void updateUI(){
+        if (user.getFirstTime() == 1){
+
+            updateTitleTextView(user.getUsername(), true);
+
+        }else {
+
+            updateTitleTextView("", false);
+        }
+    }
+
+    private void addUserToDb() {
 
         if (user.getFirstTime() == 1){
 
             user.setFirstTime(0);
-
-            updateTitleTextView(user.getUsername(), true);
 
             try{
                 fbManager.addUserToDb(user, TAG);
@@ -98,6 +103,7 @@ public class InitialConfigActivity extends AppCompatActivity {
             }catch (RegisterToDBException e){
 
             }
+
 
         }else {
 
@@ -134,14 +140,24 @@ public class InitialConfigActivity extends AppCompatActivity {
 
     public void transitionToMainAppWindow() {
 
-        goToMainAppButton = findViewById(R.id.goToMainAppButton_InitalConfig);
-
         goToMainAppButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
-                startActivity(goToMainAppWindowIntent);
+                try{
+
+                    verifier.verifyInfo();
+                    PreferredUserSettings pfs = new PreferredUserSettings("12-12-18", "08:00");
+                    book = new Book("The Code Book", "Simon Singh", 234, "30-11-18", pfs);
+                    user.addExtraInfo(InitialConfigActivity.this, book);
+                    //addUserToDb();
+
+                }catch (InitialConfigException e){
+
+                }
+
+                //Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
+                //startActivity(goToMainAppWindowIntent);
             }
         });
 

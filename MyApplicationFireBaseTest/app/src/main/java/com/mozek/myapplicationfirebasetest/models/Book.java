@@ -52,4 +52,8 @@ public class Book {
         isFinished = finished;
     }
 
+    @Override
+    public String toString() {
+        return "Book{title: '"+this.title+"', author: '"+this.author+"', pages:'"+Integer.toString(this.pages)+"', "+this.preferredUserSettings.toString()+"}";
+    }
 }

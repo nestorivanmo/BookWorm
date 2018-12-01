@@ -30,4 +30,9 @@ public class PreferredUserSettings {
     public void setPreferredReadingHour(String preferredReadingHour) {
         this.preferredReadingHour = preferredReadingHour;
     }
+
+    @Override
+    public String toString() {
+        return "PrefferedUserSettings{finishBefore: '"+this.finishBefore+"', preferredReadingHour: '"+this.preferredReadingHour+"'}";
+    }
 }

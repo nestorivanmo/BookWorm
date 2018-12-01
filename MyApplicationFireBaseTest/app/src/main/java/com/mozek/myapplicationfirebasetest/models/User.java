@@ -1,9 +1,14 @@
 package com.mozek.myapplicationfirebasetest.models;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static com.mozek.myapplicationfirebasetest.mainapp.config.InitialConfigActivity.TAG;
 
 
 public class User implements Parcelable{
@@ -29,6 +34,15 @@ public class User implements Parcelable{
         this.firstTime = 1;
     }
 
+    public void addExtraInfo(Context context, Book book){
+
+        String bookInfo = book.toString();
+
+        Log.i(TAG, bookInfo);
+
+        Toast.makeText(context, bookInfo, Toast.LENGTH_LONG).show();
+
+    }
 
     @Override
     public int describeContents() {
@@ -53,7 +67,7 @@ public class User implements Parcelable{
 
     @Override
     public String toString() {
-        return "User{'username': "+this.username+", 'email': "+this.email+", 'firstTime?:'"+this.firstTime+"}";
+        return "User{username: '"+this.username+"', email: '"+this.email+"', firstTime?:'"+this.firstTime+"'}";
     }
 
     public String getUsername() {
@@ -87,4 +101,5 @@ public class User implements Parcelable{
     public ArrayList<Book> getBooks() {
         return books;
     }
+
 }
