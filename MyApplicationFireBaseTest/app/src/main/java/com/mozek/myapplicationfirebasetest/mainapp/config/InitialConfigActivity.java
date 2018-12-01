@@ -1,27 +1,24 @@
 package com.mozek.myapplicationfirebasetest.mainapp.config;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.mozek.myapplicationfirebasetest.FirebaseManager.FirebaseManager;
 import com.mozek.myapplicationfirebasetest.R;
+import com.mozek.myapplicationfirebasetest.exceptions.InitialConfigException;
 import com.mozek.myapplicationfirebasetest.exceptions.RegisterToDBException;
 import com.mozek.myapplicationfirebasetest.exceptions.UserMissingException;
 import com.mozek.myapplicationfirebasetest.mainapp.app.MainActivity;
+import com.mozek.myapplicationfirebasetest.models.Book;
 import com.mozek.myapplicationfirebasetest.models.User;
+import com.mozek.myapplicationfirebasetest.verifiers.InitialConfigVerifier;
 
 
 public class InitialConfigActivity extends AppCompatActivity {
@@ -30,8 +27,13 @@ public class InitialConfigActivity extends AppCompatActivity {
 
     private FloatingActionButton goToMainAppButton;
     private TextView titleTV;
+    private Spinner bookSpinner, deadlineDateSpiner;
+    private EditText hourET, minuteET;
+
     private User user;
+    private Book book;
     private FirebaseManager fbManager;
+    private InitialConfigVerifier verifier;
 
 
     @Override
@@ -39,6 +41,8 @@ public class InitialConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
         fbManager = new FirebaseManager();
+        getGraphicElements();
+        activateSpinners();
 
         try {
             user = receiveUser();
@@ -50,6 +54,28 @@ public class InitialConfigActivity extends AppCompatActivity {
 
     }
 
+    private void getGraphicElements(){
+        bookSpinner = findViewById(R.id.selectBook_Spinner_InitialConfig);
+        deadlineDateSpiner = findViewById(R.id.selectDate_Spinner_InitialConfig);
+        hourET = findViewById(R.id.hourPicker_ET_InitialConfig);
+        minuteET = findViewById(R.id.minutePicker_ET_InitialConfig);
+    }
+
+    private void activateSpinners(){
+        bookSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+
     private void handleUser(User user) {
 
         if (user.getFirstTime() == 1){
@@ -58,10 +84,15 @@ public class InitialConfigActivity extends AppCompatActivity {
 
             updateTitleTextView(user.getUsername(), true);
 
-            try {
+            try{
 
+                verifier.verifyInfo();
                 fbManager.addUserToDb(user, TAG);
                 transitionToMainAppWindow();
+
+            }catch (InitialConfigException e){
+
+
 
             }catch (RegisterToDBException e){
 
