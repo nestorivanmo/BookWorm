@@ -1,8 +1,10 @@
 package com.mozek.myapplicationfirebasetest.mainapp.config;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,7 +13,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mozek.myapplicationfirebasetest.FirebaseManager.FirebaseManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.mozek.myapplicationfirebasetest.exceptions.ReadFromDBException;
+import com.mozek.myapplicationfirebasetest.managers.DataManager;
+import com.mozek.myapplicationfirebasetest.managers.FirebaseManager;
 import com.mozek.myapplicationfirebasetest.R;
 import com.mozek.myapplicationfirebasetest.exceptions.InitialConfigException;
 import com.mozek.myapplicationfirebasetest.exceptions.RegisterToDBException;
@@ -20,6 +29,9 @@ import com.mozek.myapplicationfirebasetest.models.Book;
 import com.mozek.myapplicationfirebasetest.models.PreferredUserSettings;
 import com.mozek.myapplicationfirebasetest.models.User;
 import com.mozek.myapplicationfirebasetest.verifiers.InitialConfigVerifier;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class InitialConfigActivity extends AppCompatActivity {
@@ -34,6 +46,7 @@ public class InitialConfigActivity extends AppCompatActivity {
     private User user;
     private Book book;
     private FirebaseManager fbManager;
+    private DataManager dataManager;
     private InitialConfigVerifier verifier = new InitialConfigVerifier();
 
 
@@ -42,6 +55,7 @@ public class InitialConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
         fbManager = new FirebaseManager();
+        dataManager = new DataManager();
         getGraphicElements();
         activateSpinners();
 
@@ -60,21 +74,12 @@ public class InitialConfigActivity extends AppCompatActivity {
 
     private void activateSpinners(){
 
-        String[] booksForSpinner = new String[] {"Book 1", "Book 2", "Book 3"};
-        String[] weeksFroSpinner = new String[] {"1 week", "2 weeks", "3 weeks", "4 weeks"};
-
-        ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, booksForSpinner);
-        bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bookSpinner.setAdapter(bookAdapter);
-
-        ArrayAdapter<String> weekAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, weeksFroSpinner);
-        weekAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        weekSpinner.setAdapter(weekAdapter);
+        populateSpinners();
 
         bookSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(InitialConfigActivity.this, "Selected book: "+ adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show();
+
             }
 
             @Override
@@ -86,7 +91,7 @@ public class InitialConfigActivity extends AppCompatActivity {
         weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(InitialConfigActivity.this, "Selected week: "+ adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show();
+
             }
 
             @Override
@@ -94,6 +99,37 @@ public class InitialConfigActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void populateSpinners() {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("books")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ArrayList<String> booksForSpinner = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            Book b;
+                            for (DocumentSnapshot document : task.getResult()) {
+                                b = document.toObject(Book.class);
+                                booksForSpinner.add(b.getTitle() + ", " + b.getAuthor());
+                            }
+                            ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(InitialConfigActivity.this, android.R.layout.simple_spinner_item, booksForSpinner);
+                            bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            bookSpinner.setAdapter(bookAdapter);
+                        } else {
+                            
+                        }
+                    }
+                });
+
+        String[] weeksFroSpinner = new String[] {"1 week", "2 weeks", "3 weeks", "4 weeks"};
+        ArrayAdapter<String> weekAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, weeksFroSpinner);
+        weekAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        weekSpinner.setAdapter(weekAdapter);
     }
 
     private void getGraphicElements(){

@@ -45,8 +45,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     Intent goToConfigIntent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(goToConfigIntent);
-
                 }
+
             }
         };
         activateButtons();
