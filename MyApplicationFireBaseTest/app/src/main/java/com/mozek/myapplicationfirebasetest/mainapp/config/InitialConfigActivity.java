@@ -1,21 +1,21 @@
 package com.mozek.myapplicationfirebasetest.mainapp.config;
 
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mozek.myapplicationfirebasetest.FirebaseManager.FirebaseManager;
 import com.mozek.myapplicationfirebasetest.R;
 import com.mozek.myapplicationfirebasetest.exceptions.InitialConfigException;
 import com.mozek.myapplicationfirebasetest.exceptions.RegisterToDBException;
 import com.mozek.myapplicationfirebasetest.exceptions.UserMissingException;
-import com.mozek.myapplicationfirebasetest.mainapp.app.MainActivity;
 import com.mozek.myapplicationfirebasetest.models.Book;
 import com.mozek.myapplicationfirebasetest.models.PreferredUserSettings;
 import com.mozek.myapplicationfirebasetest.models.User;
@@ -28,7 +28,7 @@ public class InitialConfigActivity extends AppCompatActivity {
 
     private FloatingActionButton goToMainAppButton;
     private TextView titleTV;
-    private Spinner bookSpinner, deadlineDateSpiner;
+    private Spinner bookSpinner, weekSpinner;
     private EditText hourET, minuteET;
 
     private User user;
@@ -53,15 +53,40 @@ public class InitialConfigActivity extends AppCompatActivity {
 
         }catch (UserMissingException e){
 
+
         }
 
     }
 
     private void activateSpinners(){
+
+        String[] booksForSpinner = new String[] {"Book 1", "Book 2", "Book 3"};
+        String[] weeksFroSpinner = new String[] {"1 week", "2 weeks", "3 weeks", "4 weeks"};
+
+        ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, booksForSpinner);
+        bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bookSpinner.setAdapter(bookAdapter);
+
+        ArrayAdapter<String> weekAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, weeksFroSpinner);
+        weekAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        weekSpinner.setAdapter(weekAdapter);
+
         bookSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(InitialConfigActivity.this, "Selected book: "+ adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(InitialConfigActivity.this, "Selected week: "+ adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -74,7 +99,7 @@ public class InitialConfigActivity extends AppCompatActivity {
     private void getGraphicElements(){
         goToMainAppButton = findViewById(R.id.goToMainAppButton_InitalConfig);
         bookSpinner = findViewById(R.id.selectBook_Spinner_InitialConfig);
-        deadlineDateSpiner = findViewById(R.id.selectDate_Spinner_InitialConfig);
+        weekSpinner = findViewById(R.id.selectDate_Spinner_InitialConfig);
         hourET = findViewById(R.id.hourPicker_ET_InitialConfig);
         minuteET = findViewById(R.id.minutePicker_ET_InitialConfig);
     }
