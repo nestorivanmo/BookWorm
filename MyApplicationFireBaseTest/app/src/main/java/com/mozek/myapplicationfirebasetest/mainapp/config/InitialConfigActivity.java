@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.mozek.myapplicationfirebasetest.FirebaseManager.FirebaseManager;
 import com.mozek.myapplicationfirebasetest.R;
 import com.mozek.myapplicationfirebasetest.exceptions.RegisterToDBException;
 import com.mozek.myapplicationfirebasetest.exceptions.UserMissingException;
@@ -30,14 +31,15 @@ public class InitialConfigActivity extends AppCompatActivity {
     private FloatingActionButton goToMainAppButton;
     private TextView titleTV;
     private User user;
+    private FirebaseManager fbManager;
 
-    private FirebaseFirestore db;
     // TODO: 11/29/18 update Welcome, user message in XML file
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
+        fbManager = new FirebaseManager();
 
         try {
             user = receiveUser();
@@ -55,23 +57,33 @@ public class InitialConfigActivity extends AppCompatActivity {
 
             user.setFirstTime(0);
 
-            updatetitleTextView(user.getUsername());
-            
+            updateTitleTextView(user.getUsername(), true);
 
-            transitionToMainAppWindow();
+            try {
+                fbManager.addUserToDb(user, TAG);
+                transitionToMainAppWindow();
+                
+            }catch (RegisterToDBException e){
+
+            }
 
         }else {
-
-
-
+            updateTitleTextView("", false);
         }
 
     }
 
-    public void updatetitleTextView(String userName){
+    public void updateTitleTextView(String input, boolean firstTime){
         titleTV = findViewById(R.id.initialConfigTitle_TV_InitialConfig);
-        String currentText = getString(R.string.Bienvenido);
-        currentText += " " + userName;
+        String currentText;
+
+        if (firstTime) {
+            currentText = getString(R.string.Bienvenido);
+        }else{
+            currentText = getString(R.string.agregaUnNuevoLibro);
+        }
+
+        currentText += ", " + input;
         titleTV.setText(currentText);
     }
 
@@ -94,27 +106,6 @@ public class InitialConfigActivity extends AppCompatActivity {
         goToMainAppButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                User currentUser = user;
-
-
-
-                db.collection("users")
-                        .add(currentUser)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
 
                 //Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
                 //startActivity(goToMainAppWindowIntent);
