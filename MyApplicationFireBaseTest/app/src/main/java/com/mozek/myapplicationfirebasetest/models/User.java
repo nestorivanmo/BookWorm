@@ -9,20 +9,22 @@ public class User implements Parcelable{
     private String username;
     private String email;
     private String password;
+    private int firstTime;
 
     public User(){
+
     }
 
     public User(Parcel in) {
         this.username = in.readString();
         this.email = in.readString();
-        this.password = in.readString();
+        this.firstTime = in.readInt();
     }
 
-    public User(String username, String email, String password){
+    public User(String username, String email){
         this.username = username;
         this.email = email;
-        this.password = password;
+        this.firstTime = 1;
     }
 
     public void addBook(){
@@ -38,7 +40,7 @@ public class User implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(username);
         parcel.writeString(email);
-        parcel.writeString(password);
+        parcel.writeInt(firstTime);
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>(){
@@ -52,7 +54,7 @@ public class User implements Parcelable{
 
     @Override
     public String toString() {
-        return "User{'username': "+this.username+", 'email': "+this.email+"}";
+        return "User{'username': "+this.username+", 'email': "+this.email+", 'firstTime?:'"+this.firstTime+"}";
     }
 
     public String getUsername() {
@@ -71,11 +73,11 @@ public class User implements Parcelable{
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public int getFirstTime() {
+        return firstTime;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setFirstTime(int firstTime) {
+        this.firstTime = firstTime;
     }
 }

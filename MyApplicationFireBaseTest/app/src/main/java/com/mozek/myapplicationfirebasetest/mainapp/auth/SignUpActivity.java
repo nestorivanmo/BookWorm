@@ -64,6 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
         ButSignUp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String email= TextEmail.getText().toString().trim();
                 String password=TextPassword.getText().toString().trim();
                 String username = TextUsername.getText().toString().trim();

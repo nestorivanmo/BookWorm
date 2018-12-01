@@ -14,7 +14,9 @@
     <string name="contrasena">Password</string>
     <string name="Registro">Mozek</string>
 
-    <string name="Bienvenido">Welcome, </string>
+    <string name="Bienvenido">Welcome </string>
+    <string name="agregaUnNuevoLibro">Add a new book </string>
+    <string name="bienvenidoDeVuelta">back </string>
 
     <string name="SeleccionLibro">Select a book to start reading</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
