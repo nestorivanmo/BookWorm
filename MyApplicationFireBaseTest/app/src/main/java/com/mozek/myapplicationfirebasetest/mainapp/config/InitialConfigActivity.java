@@ -62,7 +62,7 @@ public class InitialConfigActivity extends AppCompatActivity {
             try {
                 fbManager.addUserToDb(user, TAG);
                 transitionToMainAppWindow();
-                
+
             }catch (RegisterToDBException e){
 
             }
