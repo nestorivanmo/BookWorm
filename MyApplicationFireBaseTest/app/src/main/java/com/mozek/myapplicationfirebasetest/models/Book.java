@@ -52,6 +52,11 @@ public class Book {
         isFinished = finished;
     }
 
+    public void setRegisteredBookDate(String date){
+
+        this.registeredBookDate = date;
+    }
+
     @Override
     public String toString() {
         return "Book{title: '"+this.title+"', author: '"+this.author+"', pages:'"+Integer.toString(this.pages)+"', "+this.preferredUserSettings.toString()+"}";
