@@ -3,13 +3,15 @@ package com.mozek.myapplicationfirebasetest.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 
 public class User implements Parcelable{
 
     private String username;
     private String email;
-    private String password;
     private int firstTime;
+    private ArrayList<Book> books;
 
     public User(){
 
@@ -27,9 +29,6 @@ public class User implements Parcelable{
         this.firstTime = 1;
     }
 
-    public void addBook(){
-
-    }
 
     @Override
     public int describeContents() {
@@ -79,5 +78,13 @@ public class User implements Parcelable{
 
     public void setFirstTime(int firstTime) {
         this.firstTime = firstTime;
+    }
+
+    public void addBook(Book b){
+        this.books.add(b);
+    }
+
+    public ArrayList<Book> getBooks() {
+        return books;
     }
 }

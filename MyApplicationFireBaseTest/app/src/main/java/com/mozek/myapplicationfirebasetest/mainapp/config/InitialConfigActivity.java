@@ -46,7 +46,11 @@ public class InitialConfigActivity extends AppCompatActivity {
 
         try {
             user = receiveUser();
+            verifier.verifyInfo();
+            completeUser(user);
             handleUser(user);
+
+        }catch (InitialConfigException e){
 
         }catch (UserMissingException e){
 
@@ -54,11 +58,8 @@ public class InitialConfigActivity extends AppCompatActivity {
 
     }
 
-    private void getGraphicElements(){
-        bookSpinner = findViewById(R.id.selectBook_Spinner_InitialConfig);
-        deadlineDateSpiner = findViewById(R.id.selectDate_Spinner_InitialConfig);
-        hourET = findViewById(R.id.hourPicker_ET_InitialConfig);
-        minuteET = findViewById(R.id.minutePicker_ET_InitialConfig);
+    private void completeUser(User user){
+        // TODO: 11/30/18 crear libro aqui y agregarlo a la lista de libros del usuario
     }
 
     private void activateSpinners(){
@@ -75,6 +76,12 @@ public class InitialConfigActivity extends AppCompatActivity {
         });
     }
 
+    private void getGraphicElements(){
+        bookSpinner = findViewById(R.id.selectBook_Spinner_InitialConfig);
+        deadlineDateSpiner = findViewById(R.id.selectDate_Spinner_InitialConfig);
+        hourET = findViewById(R.id.hourPicker_ET_InitialConfig);
+        minuteET = findViewById(R.id.minutePicker_ET_InitialConfig);
+    }
 
     private void handleUser(User user) {
 
@@ -85,14 +92,8 @@ public class InitialConfigActivity extends AppCompatActivity {
             updateTitleTextView(user.getUsername(), true);
 
             try{
-
-                verifier.verifyInfo();
                 fbManager.addUserToDb(user, TAG);
                 transitionToMainAppWindow();
-
-            }catch (InitialConfigException e){
-
-
 
             }catch (RegisterToDBException e){
 
