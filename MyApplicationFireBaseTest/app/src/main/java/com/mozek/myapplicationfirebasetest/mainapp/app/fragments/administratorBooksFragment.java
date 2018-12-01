@@ -16,7 +16,7 @@ import com.mozek.myapplicationfirebasetest.mainapp.auth.LoginActivity;
 
 
 public class administratorBooksFragment extends Fragment {
-    private Button logOutButoon;
+    private Button logOutButton;
 
     public administratorBooksFragment() {
 
@@ -28,8 +28,8 @@ public class administratorBooksFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_administrator_books, container, false);
 
-        logOutButoon= view.findViewById(R.id.butoonLogi);
-        logOutButoon.setOnClickListener(new View.OnClickListener() {
+        logOutButton= view.findViewById(R.id.logOutButton_AdminBooks_Fragment);
+        logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();

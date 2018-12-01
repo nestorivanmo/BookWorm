@@ -9,7 +9,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/butoonLogi"
+        android:id="@+id/logOutButton_AdminBooks_Fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log out 1st"
