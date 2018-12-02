@@ -2,7 +2,6 @@ package com.mozek.myapplicationfirebasetest.verifiers;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.mozek.myapplicationfirebasetest.exceptions.AuthException;
 import com.mozek.myapplicationfirebasetest.fairules.Errors_Login;

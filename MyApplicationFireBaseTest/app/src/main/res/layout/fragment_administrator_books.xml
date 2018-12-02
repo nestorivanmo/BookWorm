@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorSecondary"
     tools:context=".mainapp.app.fragments.administratorBooksFragment">
-
-
+    
     <Button
         android:id="@+id/logOutButton_AdminBooks_Fragment"
         android:layout_width="wrap_content"

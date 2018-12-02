@@ -2,28 +2,18 @@ package com.mozek.myapplicationfirebasetest.mainapp.auth;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.mozek.myapplicationfirebasetest.exceptions.AuthException;
 import com.mozek.myapplicationfirebasetest.fairules.Errors_Sign_UP;
 import com.mozek.myapplicationfirebasetest.mainapp.config.InitialConfigActivity;
@@ -39,7 +29,6 @@ public class SignUpActivity extends AppCompatActivity {
     private ProgressDialog progressRegister;
     private FirebaseAuth firebaseAuth;
     private AuthVerifier authVerifier = new AuthVerifier();
-    private FirebaseFirestore db;
     public static final String TAG = "SignUpActivity";
 
     @Override

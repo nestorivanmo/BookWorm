@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#232323</color>
+    <color name="colorSecondary">#303030</color>
     <color name="colorPrimaryDark">#232323</color>
     <color name="Amarillo">#FBB300</color>
     <color name="Blanco">#FFF</color>

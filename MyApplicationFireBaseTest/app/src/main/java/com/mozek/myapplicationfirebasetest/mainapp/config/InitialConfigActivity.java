@@ -25,7 +25,6 @@ import com.mozek.myapplicationfirebasetest.mainapp.app.MainActivity;
 import com.mozek.myapplicationfirebasetest.managers.DateManager;
 import com.mozek.myapplicationfirebasetest.managers.FirebaseManager;
 import com.mozek.myapplicationfirebasetest.R;
-import com.mozek.myapplicationfirebasetest.exceptions.InitialConfigException;
 import com.mozek.myapplicationfirebasetest.exceptions.RegisterToDBException;
 import com.mozek.myapplicationfirebasetest.exceptions.UserMissingException;
 import com.mozek.myapplicationfirebasetest.models.Book;
