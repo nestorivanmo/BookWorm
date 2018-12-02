@@ -6,6 +6,7 @@
     <string name="usuario">Username</string>
 
     <string name="Login_boton">Login</string>
+    <string name="Logout_boton">Logout</string>
     <string name="signUp_hint">New..? Sign up here</string>
 
     <string name="SignUp_boton"><u>Sign Up</u></string>
