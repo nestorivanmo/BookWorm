@@ -7,15 +7,6 @@ import com.mozek.myapplicationfirebasetest.fairules.Errors_Sign_UP;
 
 public class Verifier {
 
-    private String errorMessage;
-
-    public String getError() {
-        return errorMessage;
-    }
-    public void setError(String error){
-        this.errorMessage = error;
-    }
-
     public void displayError(Context activityContext, String errorMsg) {
         Toast.makeText(activityContext, errorMsg ,Toast.LENGTH_SHORT).show();
     }

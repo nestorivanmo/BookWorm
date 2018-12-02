@@ -45,13 +45,13 @@ public class FirebaseManager {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
+                        Log.i(TAG, "Error adding document", e);
                         setFailure(true);
                     }
                 });
@@ -59,36 +59,6 @@ public class FirebaseManager {
         if (isFailure()){
             throw new RegisterToDBException();
         }
-
-    }
-
-    public ArrayList<DocumentSnapshot> readFromDataBase(Context context, String collectionName) throws ReadFromDBException{
-
-        final Context ctx = context;
-        ArrayList<DocumentSnapshot> docs = new ArrayList<>();
-
-        db.collection(collectionName)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                addDocument(document);
-                            }
-                        } else {
-                            setFailure(true);
-                        }
-                    }
-                });
-
-        if (isFailure()) {
-            throw  new ReadFromDBException();
-        }
-
-
-        Toast.makeText(ctx, "Docs Fb -> "  + Integer.toString(docs.size()), Toast.LENGTH_LONG).show();
-        return docs;
 
     }
 
@@ -100,7 +70,4 @@ public class FirebaseManager {
         this.failure = failure;
     }
 
-    public void addDocument(DocumentSnapshot doc){
-        this.documents.add(doc);
-    }
 }

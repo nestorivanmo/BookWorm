@@ -1,9 +1,12 @@
 package com.mozek.myapplicationfirebasetest.mainapp.config;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,17 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.mozek.myapplicationfirebasetest.exceptions.ReadFromDBException;
-import com.mozek.myapplicationfirebasetest.managers.DataManager;
+import com.mozek.myapplicationfirebasetest.exceptions.IncorrectDataEntryException;
+import com.mozek.myapplicationfirebasetest.mainapp.app.MainActivity;
 import com.mozek.myapplicationfirebasetest.managers.DateManager;
 import com.mozek.myapplicationfirebasetest.managers.FirebaseManager;
 import com.mozek.myapplicationfirebasetest.R;
@@ -34,26 +34,19 @@ import com.mozek.myapplicationfirebasetest.models.User;
 import com.mozek.myapplicationfirebasetest.verifiers.InitialConfigVerifier;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-
+// TODO: 12/1/18 add user input verifications  
 public class InitialConfigActivity extends AppCompatActivity {
 
     public static final String TAG = "InitialConfigActivity";
-
     private FloatingActionButton goToMainAppButton;
-    private TextView titleTV;
     private Spinner bookSpinner, weekSpinner;
     private EditText hourET, minuteET;
-    private ArrayList<Book> listOfBooksFromDB = new ArrayList<>();
-    private Book userBook;
-    private PreferredUserSettings userPFS;
-
     private User user;
-    private Book book;
+    private Book userBook = new Book();
+    private PreferredUserSettings pfs = new PreferredUserSettings();
+    private ArrayList<Book> listOfBooksFromDB = new ArrayList<>();
     private FirebaseManager fbManager;
-    private DataManager dataManager;
     private DateManager dateManager;
     private InitialConfigVerifier verifier = new InitialConfigVerifier();
 
@@ -62,18 +55,20 @@ public class InitialConfigActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
+
         fbManager = new FirebaseManager();
-        dataManager = new DataManager();
         dateManager = new DateManager();
+
         getGraphicElements();
-        activateSpinners();
 
         try {
-            user = receiveUser();
-            updateUI();
+            getUserFromExternalActivity();
+            populateSpinners();
+            activateSpinners();
+            activateEditTexts();
             transitionToMainAppWindow();
-        }catch (UserMissingException e){
 
+        }catch (UserMissingException e){
 
         }
 
@@ -81,17 +76,12 @@ public class InitialConfigActivity extends AppCompatActivity {
 
     private void activateSpinners(){
 
-        populateSpinners();
-
-        userBook.setRegisteredBookDate(dateManager.getCurrentTime());
-
         bookSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedBook = adapterView.getSelectedItem().toString();
-                String[] bookList = selectedBook.split(",");
 
                 userBook = listOfBooksFromDB.get(i);
+                userBook.setRegisteredBookDate(dateManager.getCurrentTime());
 
             }
             @Override
@@ -103,9 +93,7 @@ public class InitialConfigActivity extends AppCompatActivity {
         weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                
-
+                pfs.setFinishBefore(adapterView.getSelectedItem().toString());
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -115,9 +103,7 @@ public class InitialConfigActivity extends AppCompatActivity {
     }
 
     private void populateSpinners() {
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         db.collection("books")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -154,40 +140,88 @@ public class InitialConfigActivity extends AppCompatActivity {
         minuteET = findViewById(R.id.minutePicker_ET_InitialConfig);
     }
 
+    private void activateEditTexts(){
+
+        pfs.setHour(Integer.parseInt(hourET.getHint().toString()));
+        pfs.setMinutes(Integer.parseInt(minuteET.getHint().toString()));
+        pfs.joinHoursAndMinutes();
+
+        hourET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int userHour = Integer.parseInt(charSequence.toString());
+                try {
+                    if (verifier.verifyHour(userHour)){
+                        pfs.setHour(userHour);
+                        pfs.joinHoursAndMinutes();
+                    }else{
+                        throw new IncorrectDataEntryException();
+                    }
+                }catch (IncorrectDataEntryException e){
+                    Log.i(TAG, "Incorrect hour :(");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        minuteET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int userMinutes = Integer.parseInt(charSequence.toString());
+                try{
+                    if (verifier.verifyMinutes(userMinutes)){
+                        pfs.setMinutes(userMinutes);
+                        pfs.joinHoursAndMinutes();
+                    }else{
+                        throw  new IncorrectDataEntryException();
+                    }
+                }catch (IncorrectDataEntryException e ){
+                    Log.i(TAG, "Incorrect minutes :(");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+    }
+
     private void updateUI(){
         if (user.getFirstTime() == 1){
-
             updateTitleTextView(user.getUsername(), true);
-
         }else {
-
             updateTitleTextView("", false);
         }
     }
 
     private void addUserToDb() {
-
         if (user.getFirstTime() == 1){
-
             user.setFirstTime(0);
-
             try{
                 fbManager.addUserToDb(user, TAG);
-                transitionToMainAppWindow();
-
             }catch (RegisterToDBException e){
-
             }
-
-
         }else {
-
             updateTitleTextView("", false);
         }
-
     }
 
     public void updateTitleTextView(String input, boolean firstTime){
+        TextView titleTV;
         titleTV = findViewById(R.id.initialConfigTitle_TV_InitialConfig);
         String currentText;
 
@@ -201,16 +235,14 @@ public class InitialConfigActivity extends AppCompatActivity {
         titleTV.setText(currentText);
     }
 
-    public User receiveUser() throws UserMissingException{
-
+    public void getUserFromExternalActivity() throws UserMissingException{
         Bundle data = getIntent().getExtras();
-        User user;
         if (data == null){
             throw new UserMissingException();
         }else{
             user = data.getParcelable("user");
+            updateUI();
         }
-        return user;
     }
 
     public void transitionToMainAppWindow() {
@@ -219,20 +251,12 @@ public class InitialConfigActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                try{
+                userBook.setPreferredUserSettings(pfs);
+                user.addBook(userBook);
+                addUserToDb();
 
-                    verifier.verifyInfo();
-                    PreferredUserSettings pfs = new PreferredUserSettings("12-12-18", "08:00");
-                    book = new Book("The Code Book", "Simon Singh", 234, "30-11-18", pfs);
-                    user.addExtraInfo(InitialConfigActivity.this, book);
-                    //addUserToDb();
-
-                }catch (InitialConfigException e){
-
-                }
-
-                //Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
-                //startActivity(goToMainAppWindowIntent);
+                Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
+                startActivity(goToMainAppWindowIntent);
             }
         });
 

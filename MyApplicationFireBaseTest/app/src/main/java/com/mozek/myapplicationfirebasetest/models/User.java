@@ -16,7 +16,7 @@ public class User implements Parcelable{
     private String username;
     private String email;
     private int firstTime;
-    private ArrayList<Book> books;
+    private ArrayList<Book> books = new ArrayList<>();
 
     public User(){
 
@@ -32,16 +32,6 @@ public class User implements Parcelable{
         this.username = username;
         this.email = email;
         this.firstTime = 1;
-    }
-
-    public void addExtraInfo(Context context, Book book){
-
-        String bookInfo = book.toString();
-
-        Log.i(TAG, bookInfo);
-
-        Toast.makeText(context, bookInfo, Toast.LENGTH_LONG).show();
-
     }
 
     @Override

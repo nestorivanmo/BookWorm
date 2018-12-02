@@ -57,8 +57,20 @@ public class Book {
         this.registeredBookDate = date;
     }
 
+    public String getRegisteredBookDate(){
+        return this.registeredBookDate;
+    }
+
+    public PreferredUserSettings getPreferredUserSettings() {
+        return preferredUserSettings;
+    }
+
+    public void setPreferredUserSettings(PreferredUserSettings preferredUserSettings) {
+        this.preferredUserSettings = preferredUserSettings;
+    }
+
     @Override
     public String toString() {
-        return "Book{title: '"+this.title+"', author: '"+this.author+"', pages:'"+Integer.toString(this.pages)+"', "+this.preferredUserSettings.toString()+"}";
+        return "Book{title: '"+this.title+"', author: '"+this.author+"', pages:'"+Integer.toString(this.pages)+"'}";
     }
 }

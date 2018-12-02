@@ -1,18 +1,17 @@
 package com.mozek.myapplicationfirebasetest.models;
 
-import java.util.Calendar;
-import java.util.Date;
 
 public class PreferredUserSettings {
 
     private String finishBefore, preferredReadingHour;
+    private int hour, minutes;
 
     public PreferredUserSettings() {
     }
 
-    public PreferredUserSettings(String finishBefore, String preferredReadingHour) {
-        this.finishBefore = finishBefore;
-        this.preferredReadingHour = preferredReadingHour;
+    public void joinHoursAndMinutes(){
+        String hourP = String.valueOf(hour) + ":" + String.valueOf(minutes);
+        setPreferredReadingHour(hourP);
     }
 
     public String getFinishBefore() {
@@ -31,8 +30,16 @@ public class PreferredUserSettings {
         this.preferredReadingHour = preferredReadingHour;
     }
 
+    public void setHour(int hour){
+        this.hour = hour;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
     @Override
     public String toString() {
-        return "PrefferedUserSettings{finishBefore: '"+this.finishBefore+"', preferredReadingHour: '"+this.preferredReadingHour+"'}";
+        return "PrefferedUserSettings{finishBefore: '"+getFinishBefore()+"', preferredReadingHour: '"+getPreferredReadingHour()+"'}";
     }
 }
