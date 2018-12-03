@@ -5,13 +5,16 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.mozek.myapplicationfirebasetest.R;
 import com.mozek.myapplicationfirebasetest.exceptions.UserMissingException;
 import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.BookAdminFragment;
 import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.LibraryFragment;
 import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.DigitalReaderFragment;
+import com.mozek.myapplicationfirebasetest.managers.FirebaseManager;
 import com.mozek.myapplicationfirebasetest.managers.ObjectSenderManager;
 import com.mozek.myapplicationfirebasetest.models.User;
 
@@ -25,9 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private BookAdminFragment bookAdminFragment;
     private LibraryFragment libraryFragment;
     private DigitalReaderFragment digitalReaderFragment;
+    private FirebaseManager fbManager;
     private User user;
-
-    private ObjectSenderManager objSenderManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getFragments();
-
-        try{
-            getUserFromExternalActivity();
-        }catch (UserMissingException e){
-            // TODO: 12/3/18 implement UserMissingException UI update
-        }
+        this.user = fbManager.getUserFromDB();
 
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -48,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_admin:
-                        objSenderManager.sendUserToFragment(SENDER_TITLE, user, bookAdminFragment);
                         manager.beginTransaction().replace(R.id.main_frame, bookAdminFragment).addToBackStack(null).commit();
                         return true;
                     case R.id.navigation_reader:
@@ -71,16 +67,10 @@ public class MainActivity extends AppCompatActivity {
         digitalReaderFragment = new DigitalReaderFragment();
         manager.beginTransaction().replace(R.id.main_frame, bookAdminFragment).addToBackStack(null).commit();
         navigation = findViewById(R.id.navigation);
-        objSenderManager = new ObjectSenderManager();
+        fbManager = new FirebaseManager();
     }
 
-    private void getUserFromExternalActivity() throws UserMissingException{
-        Bundle data = getIntent().getExtras();
-        if (data == null){
-            throw new UserMissingException();
-        }else{
-            this.user = data.getParcelable("userFromInitConfig");
-        }
+    public User getUser() {
+        return user;
     }
-
 }

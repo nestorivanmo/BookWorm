@@ -1,9 +1,9 @@
 package com.mozek.myapplicationfirebasetest.mainapp.app.fragments;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +12,16 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mozek.myapplicationfirebasetest.R;
 import com.mozek.myapplicationfirebasetest.exceptions.UserMissingException;
+import com.mozek.myapplicationfirebasetest.mainapp.app.MainActivity;
 import com.mozek.myapplicationfirebasetest.mainapp.auth.LoginActivity;
-
+import com.mozek.myapplicationfirebasetest.models.User;
 
 public class BookAdminFragment extends Fragment implements Fragmentable{
 
+    private static final String TAG = "BookAdminFragment";
     private Button logOutButton;
+    private User user;
+    private MainActivity mainActivity = new MainActivity();
 
     public BookAdminFragment() {
     }
@@ -28,6 +32,10 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
 
         getGraphicElements(view);
         logOutUserIfClicked(inflater);
+
+        this.user = mainActivity.getUser();
+        Log.i(TAG, "user from Main activity -> " + user.getEmail());
+
 
         return view;
     }
@@ -49,7 +57,4 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
         });
     }
 
-    public void receiveUserFromMainActivity() throws UserMissingException{
-
-    }
 }

@@ -8,5 +8,4 @@ public interface Fragmentable {
 
     void getGraphicElements(View v);
 
-    void receiveUserFromMainActivity() throws UserMissingException;
 }

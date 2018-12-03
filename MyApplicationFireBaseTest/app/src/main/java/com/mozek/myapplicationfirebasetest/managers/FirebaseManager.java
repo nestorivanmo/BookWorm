@@ -10,6 +10,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,9 +39,7 @@ public class FirebaseManager {
     }
 
     public void addUserToDb(User currentUser, String tag) throws RegisterToDBException{
-
         final String TAG = tag;
-
         db.collection("users")
                 .add(currentUser)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -59,14 +59,22 @@ public class FirebaseManager {
         if (isFailure()){
             throw new RegisterToDBException();
         }
-
     }
 
-    public boolean isFailure() {
+    public User getUserFromDB(){
+        User user = new User();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String currenUserId = currentUser.getUid();
+
+        
+
+        return user;
+    }
+
+    private boolean isFailure() {
         return failure;
     }
-
-    public void setFailure(boolean failure) {
+    private void setFailure(boolean failure) {
         this.failure = failure;
     }
 
