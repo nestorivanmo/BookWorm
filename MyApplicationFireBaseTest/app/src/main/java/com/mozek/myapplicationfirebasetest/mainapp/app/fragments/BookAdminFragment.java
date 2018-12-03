@@ -24,11 +24,10 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_administrator_books, container, false);
+        View view =  inflater.inflate(R.layout.fragment_book_admin, container, false);
 
         getGraphicElements(view);
         logOutUserIfClicked(inflater);
-
 
         return view;
     }
@@ -36,7 +35,7 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
     public void getGraphicElements(View view){
         logOutButton= view.findViewById(R.id.logOutButton_AdminBooks_Fragment);
     }
-    
+
     public void logOutUserIfClicked(LayoutInflater inflater){
         final LayoutInflater inflaterInside = inflater;
         logOutButton.setOnClickListener(new View.OnClickListener() {
