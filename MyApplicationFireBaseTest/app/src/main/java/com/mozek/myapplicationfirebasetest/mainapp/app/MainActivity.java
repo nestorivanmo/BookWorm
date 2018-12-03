@@ -8,7 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mozek.myapplicationfirebasetest.R;
 import com.mozek.myapplicationfirebasetest.exceptions.UserMissingException;
 import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.BookAdminFragment;
@@ -17,6 +24,8 @@ import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.DigitalReaderFr
 import com.mozek.myapplicationfirebasetest.managers.FirebaseManager;
 import com.mozek.myapplicationfirebasetest.managers.ObjectSenderManager;
 import com.mozek.myapplicationfirebasetest.models.User;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private BookAdminFragment bookAdminFragment;
     private LibraryFragment libraryFragment;
     private DigitalReaderFragment digitalReaderFragment;
-    private FirebaseManager fbManager;
-    private User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +45,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getFragments();
-        this.user = fbManager.getUserFromDB();
 
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -67,10 +73,6 @@ public class MainActivity extends AppCompatActivity {
         digitalReaderFragment = new DigitalReaderFragment();
         manager.beginTransaction().replace(R.id.main_frame, bookAdminFragment).addToBackStack(null).commit();
         navigation = findViewById(R.id.navigation);
-        fbManager = new FirebaseManager();
     }
 
-    public User getUser() {
-        return user;
-    }
 }
