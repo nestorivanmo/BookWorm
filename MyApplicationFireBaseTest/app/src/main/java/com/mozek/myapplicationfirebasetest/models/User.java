@@ -1,14 +1,9 @@
 package com.mozek.myapplicationfirebasetest.models;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-
-import static com.mozek.myapplicationfirebasetest.mainapp.config.InitialConfigActivity.TAG;
 
 
 public class User implements Parcelable{

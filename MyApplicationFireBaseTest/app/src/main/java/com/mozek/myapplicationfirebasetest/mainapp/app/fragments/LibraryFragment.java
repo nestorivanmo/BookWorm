@@ -12,10 +12,10 @@ import com.mozek.myapplicationfirebasetest.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class bookShelfFragment extends Fragment {
+public class LibraryFragment extends Fragment {
 
 
-    public bookShelfFragment() {
+    public LibraryFragment() {
         // Required empty public constructor
     }
 

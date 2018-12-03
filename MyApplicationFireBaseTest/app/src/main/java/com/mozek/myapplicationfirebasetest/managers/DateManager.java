@@ -8,19 +8,14 @@ import java.util.Date;
 public class DateManager implements Management {
 
     public String getCurrentTime(){
-
         Date currentTime = Calendar.getInstance().getTime();
         String currentDate;
-
         DateFormat dateFormat = DateFormat.getDateInstance();
-
         currentDate = dateFormat.format(currentTime);
-
         return currentDate;
     }
 
     public int getNumberOfWeeks(String weeks){
-
         switch (weeks){
             case "1 week":
                 return 1;
