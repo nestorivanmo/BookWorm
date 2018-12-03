@@ -3,7 +3,7 @@ package com.mozek.myapplicationfirebasetest.models;
 public class Book {
 
     private String title, author, registeredBookDate;
-    private int pages;
+    private int pages, progress,currentPage,targetPage;
     private boolean isFinished;
     private PreferredUserSettings preferredUserSettings;
 
@@ -11,13 +11,11 @@ public class Book {
 
     }
 
-    public Book(String title, String author, int pages, String registeredBookDate, PreferredUserSettings pfs){
-       this.title = title;
-       this.author = author;
-       this.registeredBookDate = registeredBookDate;
-       this.pages = pages;
-       this.preferredUserSettings = pfs;
-       this.isFinished = false;
+    public void handleCurrentTargetPages(int numOfWeeks){
+        this.progress = 0;
+        this.currentPage = 0;
+        int numOfDays = numOfWeeks * 7;
+        this.targetPage = this.pages / numOfDays;
     }
 
     public String getTitle() {
@@ -67,6 +65,30 @@ public class Book {
 
     public void setPreferredUserSettings(PreferredUserSettings preferredUserSettings) {
         this.preferredUserSettings = preferredUserSettings;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public int getTargetPage() {
+        return targetPage;
+    }
+
+    public void setTargetPage(int targetPage) {
+        this.targetPage = targetPage;
     }
 
     @Override

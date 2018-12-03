@@ -8,31 +8,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.mozek.myapplicationfirebasetest.R;
+import com.mozek.myapplicationfirebasetest.exceptions.UserMissingException;
 import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.administratorBooksFragment;
 import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.bookShelfFragment;
 import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.digitalReaderFragment;
+import com.mozek.myapplicationfirebasetest.models.User;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private BottomNavigationView navigation;
     private administratorBooksFragment adminBooksFrag;
     private bookShelfFragment bookShelfFrag;
     private digitalReaderFragment digitalReaderFrag;
+    private User user;
 
     private FragmentManager manager = getSupportFragmentManager();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        BottomNavigationView navigation;
         adminBooksFrag= new administratorBooksFragment();
         bookShelfFrag= new bookShelfFragment();
         digitalReaderFrag= new digitalReaderFragment();
         manager.beginTransaction().replace(R.id.main_frame,adminBooksFrag).addToBackStack(null).commit();
         navigation = findViewById(R.id.navigation);
+
+        getUserFromExternalActivity();
 
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -52,17 +55,17 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
             }
-
-       /* private void setFragment(Fragment fragment) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.main_frame,fragment);
-            fragmentTransaction.commit();
-        }*/
         };
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
 
+    private void getUserFromExternalActivity() {
+        Bundle data = getIntent().getExtras();
+        if (data == null){
 
+        }else{
+            user = data.getParcelable("userFromInitConfig");
+        }
     }
 
 }

@@ -18,4 +18,20 @@ public class DateManager implements Management {
 
         return currentDate;
     }
+
+    public int getNumberOfWeeks(String weeks){
+
+        switch (weeks){
+            case "1 week":
+                return 1;
+            case "2 weeks":
+                return 2;
+            case "3 weeks":
+                return 3;
+            case "4 weeks":
+                return 4;
+                default:
+                    return 1;
+        }
+    }
 }

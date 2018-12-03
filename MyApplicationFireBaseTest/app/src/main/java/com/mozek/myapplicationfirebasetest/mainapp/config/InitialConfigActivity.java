@@ -66,7 +66,6 @@ public class InitialConfigActivity extends AppCompatActivity {
             activateSpinners();
             activateEditTexts();
             transitionToMainAppWindow();
-
         }catch (UserMissingException e){
 
         }
@@ -92,7 +91,10 @@ public class InitialConfigActivity extends AppCompatActivity {
         weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                pfs.setFinishBefore(adapterView.getSelectedItem().toString());
+                String weeks = adapterView.getSelectedItem().toString();
+                pfs.setFinishBefore(weeks);
+                int numWeeks = dateManager.getNumberOfWeeks(weeks);
+                userBook.handleCurrentTargetPages(numWeeks);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -255,6 +257,7 @@ public class InitialConfigActivity extends AppCompatActivity {
                 addUserToDb();
 
                 Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
+                goToMainAppWindowIntent.putExtra("userFromInitConfig", user);
                 startActivity(goToMainAppWindowIntent);
             }
         });
