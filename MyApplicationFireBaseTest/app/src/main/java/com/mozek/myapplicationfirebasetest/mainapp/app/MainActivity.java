@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.mozek.myapplicationfirebasetest.R;
 import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.BookAdminFragment;
+import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.DigitalReaderFragment;
 import com.mozek.myapplicationfirebasetest.mainapp.app.fragments.LibraryFragment;
 
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager manager = getSupportFragmentManager();
     private BookAdminFragment bookAdminFragment;
     private LibraryFragment libraryFragment;
-    //private DigitalReaderFragment digitalReaderFragment;
+    private DigitalReaderFragment digitalReaderFragment;
 
 
     @Override
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                         manager.beginTransaction().replace(R.id.main_frame, bookAdminFragment).addToBackStack(null).commit();
                         return true;
                     case R.id.navigation_reader:
-                        //manager.beginTransaction().replace(R.id.main_frame, digitalReaderFragment).addToBackStack(null).commit();
+                        manager.beginTransaction().replace(R.id.main_frame, digitalReaderFragment).addToBackStack(null).commit();
                         return true;
                     case R.id.navigation_library:
                         manager.beginTransaction().replace(R.id.main_frame, libraryFragment).addToBackStack(null).commit();
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private void getFragments(){
         bookAdminFragment = new BookAdminFragment();
         libraryFragment = new LibraryFragment();
-        //digitalReaderFragment = new DigitalReaderFragment();
+        digitalReaderFragment = new DigitalReaderFragment();
         manager.beginTransaction().replace(R.id.main_frame, bookAdminFragment).addToBackStack(null).commit();
         navigation = findViewById(R.id.navigation);
     }
