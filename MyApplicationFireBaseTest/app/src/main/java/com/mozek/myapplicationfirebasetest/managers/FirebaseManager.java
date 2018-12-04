@@ -12,9 +12,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mozek.myapplicationfirebasetest.exceptions.ReadFromDBException;
 import com.mozek.myapplicationfirebasetest.exceptions.RegisterToDBException;
@@ -28,10 +30,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import static com.mozek.myapplicationfirebasetest.mainapp.auth.SignUpActivity.TAG;
+
 public class FirebaseManager {
 
     private FirebaseFirestore db;
     private ArrayList<DocumentSnapshot> documents = new ArrayList<>();
+    private ArrayList<User> usersFromDb = new ArrayList<>();
     private boolean failure;
 
     public FirebaseManager(){
@@ -62,13 +67,13 @@ public class FirebaseManager {
     }
 
     public User getUserFromDB(){
-        User user = new User();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String currenUserId = currentUser.getUid();
 
-        
+        User user = new User();
+
+
 
         return user;
+
     }
 
     private boolean isFailure() {
