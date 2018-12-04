@@ -54,18 +54,16 @@ public class InitialConfigActivity extends AppCompatActivity {
     private FirebaseManager fbManager;
     private DateManager dateManager;
     private InitialConfigVerifier verifier = new InitialConfigVerifier();
+    private int numWeeks;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
-
         fbManager = new FirebaseManager();
         dateManager = new DateManager();
-
         getGraphicElements();
-
         try {
             getUserFromExternalActivity();
             populateSpinners();
@@ -73,24 +71,18 @@ public class InitialConfigActivity extends AppCompatActivity {
             activateEditTexts();
             transitionToMainAppWindow();
         }catch (UserMissingException e){
-
         }
-
     }
 
     private void activateSpinners(){
-
         bookSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
                 userBook = listOfBooksFromDB.get(i);
                 userBook.setRegisteredBookDate(dateManager.getCurrentTime());
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -99,7 +91,7 @@ public class InitialConfigActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String weeks = adapterView.getSelectedItem().toString();
                 pfs.setFinishBefore(weeks);
-                int numWeeks = dateManager.getNumberOfWeeks(weeks);
+                numWeeks = dateManager.getNumberOfWeeks(weeks);
                 userBook.handleCurrentTargetPages(numWeeks);
             }
             @Override
@@ -250,27 +242,19 @@ public class InitialConfigActivity extends AppCompatActivity {
 
     public void updateUser(User user, final Book book){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         Query userQuery = db.collection("users").whereEqualTo("email", user.getEmail());
-
         userQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
                 if(task.isSuccessful()){
                     User user = new User();
-
                     for (DocumentSnapshot doc : task.getResult()){
                         user = doc.toObject(User.class);
                     }
-
                     user.addBook(book);
                     final User finalUser = user;
-
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
                     DocumentReference docRef = db.collection("users").document(user.getEmail());
-
                     docRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -282,22 +266,17 @@ public class InitialConfigActivity extends AppCompatActivity {
                             }
                         }
                     });
-
                 }else{
-
                 }
             }
         });
-
-
     }
 
     public void transitionToMainAppWindow() {
-
         goToMainAppButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                userBook.handleCurrentTargetPages(numWeeks);
                 userBook.setPreferredUserSettings(pfs);
                 if (user.getFirstTime() == 0){
                     updateUser(user, userBook);
@@ -310,7 +289,5 @@ public class InitialConfigActivity extends AppCompatActivity {
                 startActivity(goToMainAppWindowIntent);
             }
         });
-
     }
-
 }

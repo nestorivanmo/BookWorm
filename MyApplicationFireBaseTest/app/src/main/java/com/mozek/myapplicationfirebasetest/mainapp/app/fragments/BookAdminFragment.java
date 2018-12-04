@@ -23,6 +23,7 @@ import com.mozek.myapplicationfirebasetest.R;
 import com.mozek.myapplicationfirebasetest.ViewAdapters.RecyclerViewAdapter;
 import com.mozek.myapplicationfirebasetest.mainapp.auth.LoginActivity;
 import com.mozek.myapplicationfirebasetest.mainapp.config.InitialConfigActivity;
+import com.mozek.myapplicationfirebasetest.models.Book;
 import com.mozek.myapplicationfirebasetest.models.User;
 
 import java.util.ArrayList;
@@ -35,13 +36,6 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
 
     private Button logOutButton, newBookButton;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    private ArrayList<String> mBookTitles = new ArrayList<>();
-    private ArrayList<String> mBookAuthors = new ArrayList<>();
-    private ArrayList<String> mBookProgress = new ArrayList<>();
-    private ArrayList<String> mBookCurrentPage = new ArrayList<>();
-    private ArrayList<String> mBookTargetPage = new ArrayList<>();
-
 
     public BookAdminFragment() {
     }
@@ -88,18 +82,28 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
         });
     }
 
-    public void getDataFromDB(){
-        mBookAuthors.add("Swift Jonathan");
-        mBookTitles.add("Gulliver's Adventures");
-        mBookProgress.add("67%");
-        mBookCurrentPage.add("340");
-        mBookTargetPage.add("360");
+    public void getDataFromDB(User user){
 
-        mBookAuthors.add("Nathaniel Hawthorne");
-        mBookTitles.add("The Red and the Black");
-        mBookProgress.add("10%");
-        mBookCurrentPage.add("10");
-        mBookTargetPage.add("30");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        ArrayList<Book> userBooks = user.getBooks();
+
+        ArrayList<String> mBookAuthors = new ArrayList<>();
+        ArrayList<String> mBookTitles = new ArrayList<>();
+        ArrayList<String> mBookProgress = new ArrayList<>();
+        ArrayList<String> mBookCurrentPage = new ArrayList<>();
+        ArrayList<String> mBookTargetPage = new ArrayList<>();
+
+        Log.i(TAG, "getDataFromDB: user books: " + String.valueOf(user.getBooks().size()));
+
+        for (Book b : userBooks){
+            mBookTitles.add(b.getTitle());
+            mBookAuthors.add(b.getAuthor());
+            mBookProgress.add(String.valueOf(b.getProgress()) + " %");
+            mBookCurrentPage.add(String.valueOf(b.getCurrentPage()));
+            mBookTargetPage.add(String.valueOf(b.getTargetPage()));
+        }
+
+        initRecyclerView(mBookAuthors, mBookTitles, mBookProgress, mBookCurrentPage, mBookTargetPage);
 
     }
 
@@ -112,11 +116,10 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
                 startActivity(intentSign2);
             }
         });
-        getDataFromDB();
-        initRecyclerView();
+        getDataFromDB(user);
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView(ArrayList<String> mBookAuthors, ArrayList<String> mBookTitles, ArrayList<String> mBookProgress, ArrayList<String> mBookCurrentPage, ArrayList<String> mBookTargetPage){
         Log.i(TAG, "initRecyclerView: init recyclerView");
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView_bookAdmin);
