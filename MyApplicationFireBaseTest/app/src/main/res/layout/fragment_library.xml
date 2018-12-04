@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-android:background="@color/colorPrimary"
+    android:background="@color/colorSecondary"
     tools:context=".mainapp.app.fragments.LibraryFragment">
 
     <TextView
@@ -16,6 +16,8 @@ android:background="@color/colorPrimary"
     <ListView
         android:id="@+id/listViewBooks"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content">
+
+    </ListView>
 
 </LinearLayout>

@@ -4,6 +4,7 @@ package com.mozek.myapplicationfirebasetest.mainapp.app.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ import com.mozek.myapplicationfirebasetest.models.User;
 import java.util.ArrayList;
 
 public class LibraryFragment extends Fragment {
+
+    private final static String TAG = "Library Fragment";
     private User user;
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private FirebaseUser fbUser;
@@ -35,7 +38,6 @@ public class LibraryFragment extends Fragment {
     public LibraryFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,16 +55,13 @@ public class LibraryFragment extends Fragment {
                     for (DocumentSnapshot docment:task.getResult()){
                         user= docment.toObject(User.class);
                         userBooks = user.getBooks();
-                        //ArrayAdapter adapter=new ArrayAdapter<Book>(this,android.R.layout.simple_list_item_1,userBooks);
-                        //lisbooks.setAdapter(adapter);
                     }
                     for(int i=0;i<userBooks.size();i++){
                         booksForListView.add(userBooks.get(i).getTitle() + ", " +userBooks.get(i).getAuthor());
                     }
-                    ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, booksForListView);
-                   // bookAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+                    ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,booksForListView);
                     lisbooks.setAdapter(bookAdapter);
-                    Log.i("LibraryFragment","number of books _----------------------____: " + String.valueOf(userBooks.size()));
+                    Log.i(TAG,"number of books _----------------------____: " + String.valueOf(userBooks.size()));
                 }
             });
         return inflater.inflate(R.layout.fragment_library, container, false);

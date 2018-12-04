@@ -40,11 +40,29 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout_MainInfo_bookAdminFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout_topBar_bookAdminFragment"
+        android:layout_above="@+id/relativeLayout_newBook_bookAdminFragment">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_bookAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/relativeLayout_newBook_bookAdminFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/relativeLayout_topBar_bookAdminFragment">
+        android:layout_alignParentBottom="true"
+        >
 
         <Button
             android:id="@+id/addBookButton_AdminBooks_Fragment"
