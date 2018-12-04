@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,15 +23,18 @@ import com.mozek.myapplicationfirebasetest.R;
 import com.mozek.myapplicationfirebasetest.exceptions.UserMissingException;
 import com.mozek.myapplicationfirebasetest.mainapp.app.MainActivity;
 import com.mozek.myapplicationfirebasetest.mainapp.auth.LoginActivity;
+import com.mozek.myapplicationfirebasetest.mainapp.auth.SignUpActivity;
+import com.mozek.myapplicationfirebasetest.mainapp.config.InitialConfigActivity;
 import com.mozek.myapplicationfirebasetest.models.User;
 
 public class BookAdminFragment extends Fragment implements Fragmentable{
 
     private static final String TAG = "BookAdminFragment";
-    private Button logOutButton;
+
+    private Button logOutButton, newBookButton;
+    private TextView titleTV;
     private User user;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseUser fbUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public BookAdminFragment() {
@@ -42,7 +46,7 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
 
         getGraphicElements(view);
         logOutUserIfClicked(inflater);
-
+        FirebaseUser fbUser;
         fbUser = mAuth.getCurrentUser();
         String currentUserEmail = fbUser.getEmail();
 
@@ -54,7 +58,7 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
                 for (DocumentSnapshot doc : task.getResult()) {
                     user = doc.toObject(User.class);
                 }
-                Log.i(TAG, "user read from Firstore -> "+ user.getEmail());
+                runMainThreadNow(user);
             }
         });
 
@@ -63,7 +67,8 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
 
     public void getGraphicElements(View view){
         logOutButton= view.findViewById(R.id.logOutButton_AdminBooks_Fragment);
-        
+        newBookButton = view.findViewById(R.id.addBookButton_AdminBooks_Fragment);
+        titleTV = view.findViewById(R.id.titleTV_AdmiBooks_Fragment);
     }
 
     public void logOutUserIfClicked(LayoutInflater inflater){
@@ -79,6 +84,19 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
         });
     }
 
-    public void updateUI(User user){
+    public void runMainThreadNow(final User user){
+
+        titleTV.setText(user.getUsername());
+
+        newBookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "USER CURRENT # BOOKS: " + String.valueOf(user.getBooks().size()));
+                Intent intentSign2 = new Intent(getActivity(), InitialConfigActivity.class);
+                intentSign2.putExtra("user", user);
+                startActivity(intentSign2);
+            }
+        });
+
     }
 }

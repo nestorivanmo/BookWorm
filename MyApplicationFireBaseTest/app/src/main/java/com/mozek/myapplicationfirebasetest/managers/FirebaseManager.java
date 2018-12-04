@@ -46,13 +46,8 @@ public class FirebaseManager {
     public void addUserToDb(User currentUser, String tag) throws RegisterToDBException{
         final String TAG = tag;
         db.collection("users")
-                .add(currentUser)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.i(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
+                .document(currentUser.getEmail())
+                .set(currentUser)
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -64,16 +59,6 @@ public class FirebaseManager {
         if (isFailure()){
             throw new RegisterToDBException();
         }
-    }
-
-    public User getUserFromDB(){
-
-        User user = new User();
-
-
-
-        return user;
-
     }
 
     private boolean isFailure() {

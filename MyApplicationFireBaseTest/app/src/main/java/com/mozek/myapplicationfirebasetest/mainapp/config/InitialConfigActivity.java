@@ -16,9 +16,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mozek.myapplicationfirebasetest.exceptions.IncorrectDataEntryException;
 import com.mozek.myapplicationfirebasetest.mainapp.app.MainActivity;
@@ -209,16 +215,12 @@ public class InitialConfigActivity extends AppCompatActivity {
         }
     }
 
-    private void addUserToDb() {
-        if (user.getFirstTime() == 1){
-            user.setFirstTime(0);
-            try{
-                fbManager.addUserToDb(user, TAG);
-            }catch (RegisterToDBException e){
-            }
-        }else {
-            updateTitleTextView("", false);
-        }
+    private void addUserToDb(User user) {
+        user.setFirstTime(0);
+        try{
+            fbManager.addUserToDb(user, TAG);
+        } catch (RegisterToDBException e){ }
+
     }
 
     public void updateTitleTextView(String input, boolean firstTime){
@@ -246,6 +248,50 @@ public class InitialConfigActivity extends AppCompatActivity {
         }
     }
 
+    public void updateUser(User user, final Book book){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Query userQuery = db.collection("users").whereEqualTo("email", user.getEmail());
+
+        userQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if(task.isSuccessful()){
+                    User user = new User();
+
+                    for (DocumentSnapshot doc : task.getResult()){
+                        user = doc.toObject(User.class);
+                    }
+
+                    user.addBook(book);
+                    final User finalUser = user;
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                    DocumentReference docRef = db.collection("users").document(user.getEmail());
+
+                    docRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Log.i(TAG, "document deleted .... ");
+                                addUserToDb(finalUser);
+                            }else{
+                                Log.i(TAG, "document NOT deleted ... ");
+                            }
+                        }
+                    });
+
+                }else{
+
+                }
+            }
+        });
+
+
+    }
+
     public void transitionToMainAppWindow() {
 
         goToMainAppButton.setOnClickListener(new View.OnClickListener() {
@@ -253,9 +299,12 @@ public class InitialConfigActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 userBook.setPreferredUserSettings(pfs);
-                user.addBook(userBook);
-                addUserToDb();
-
+                if (user.getFirstTime() == 0){
+                    updateUser(user, userBook);
+                }else{
+                    user.addBook(userBook);
+                    addUserToDb(user);
+                }
                 Intent goToMainAppWindowIntent = new Intent(InitialConfigActivity.this, MainActivity.class);
                 goToMainAppWindowIntent.putExtra("userFromInitConfig", user);
                 startActivity(goToMainAppWindowIntent);
