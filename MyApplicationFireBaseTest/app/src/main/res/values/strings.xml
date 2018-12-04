@@ -32,5 +32,6 @@
     <string name="newBookButton_bookAdminF">New Book</string>
     <string name="newBookToWishListButton_bookAdminF">Wish List</string>
     <string name="bookAdminTitle">Book Admin</string>
+    <string name="libaryTitle">My Books</string>
 
 </resources>

@@ -93,8 +93,6 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
         ArrayList<String> mBookCurrentPage = new ArrayList<>();
         ArrayList<String> mBookTargetPage = new ArrayList<>();
 
-        Log.i(TAG, "getDataFromDB: user books: " + String.valueOf(user.getBooks().size()));
-
         for (Book b : userBooks){
             mBookTitles.add(b.getTitle());
             mBookAuthors.add(b.getAuthor());
