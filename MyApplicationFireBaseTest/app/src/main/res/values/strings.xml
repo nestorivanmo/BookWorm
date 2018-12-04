@@ -30,5 +30,7 @@
     <string name="title_library">Library</string>
 
     <string name="newBookButton_bookAdminF">New Book</string>
+    <string name="newBookToWishListButton_bookAdminF">Wish List</string>
+    <string name="bookAdminTitle">Book Admin</string>
 
 </resources>

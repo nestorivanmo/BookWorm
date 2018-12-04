@@ -7,11 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:elevation="0dp"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorSecondary"
             >
 
             <TextView
@@ -19,7 +21,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="book title"
-                android:layout_centerHorizontal="true"/>
+                android:textColor="@color/LightGray"
+                android:layout_centerHorizontal="true"
+                android:textSize="25sp"/>
 
             <TextView
                 android:id="@+id/bookAuthor"
@@ -27,8 +31,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/bookTitle"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="book author"/>
+                android:layout_marginTop="15dp"
+                android:text="book author"
+                android:textColor="@color/LightGray"
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/bookProgress"
@@ -38,7 +44,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 android:text="40 %"
-                android:textSize="40sp"/>
+                android:textColor="@color/Amarillo"
+                android:textStyle="bold"
+                android:textSize="50sp"/>
 
             <TextView
                 android:id="@+id/bookProgress_title"
@@ -48,6 +56,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_centerHorizontal="true"
                 android:text="Book progress"
+                android:textColor="@color/LightGray"
                 />
 
             <TextView
@@ -61,7 +70,8 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginStart="50dp"
                 android:text="220"
-                android:textSize="30sp"/>
+                android:textColor="@color/LightGray"
+                android:textSize="40sp"/>
 
             <TextView
                 android:id="@+id/targetPage"
@@ -74,7 +84,8 @@
                 android:layout_marginRight="50dp"
                 android:layout_marginEnd="50dp"
                 android:text="250"
-                android:textSize="30sp"/>
+                android:textColor="@color/Amarillo"
+                android:textSize="40sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,7 +95,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginStart="30dp"
-                android:text="Current Page"/>
+                android:text="Current Page"
+                android:textColor="@color/LightGray"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -94,7 +106,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="35dp"
                 android:layout_marginEnd="35dp"
-                android:text="Target Page"/>
+                android:text="Target Page"
+                android:textColor="@color/LightGray"/>
 
         </RelativeLayout>
 

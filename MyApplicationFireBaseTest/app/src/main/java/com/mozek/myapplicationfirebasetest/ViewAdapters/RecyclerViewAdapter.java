@@ -18,11 +18,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<String> mBookTitles = new ArrayList<>();
     private ArrayList<String> mBookAuthors = new ArrayList<>();
+    private ArrayList<String> mBookProgress = new ArrayList<>();
+    private ArrayList<String> mBookCurrentPage = new ArrayList<>();
+    private ArrayList<String> mBookTargetPage = new ArrayList<>();
+
     private Context mContext;
 
-    public RecyclerViewAdapter(Context mContext, ArrayList<String> mBookTitles, ArrayList<String> mBookAuthors) {
+    public RecyclerViewAdapter(Context mContext, ArrayList<String> mBookTitles, ArrayList<String> mBookAuthors, ArrayList<String> mBookProgress, ArrayList<String> mBookCurrentPage, ArrayList<String> mBookTargetPage) {
         this.mBookTitles = mBookTitles;
         this.mBookAuthors = mBookAuthors;
+        this.mBookProgress = mBookProgress;
+        this.mBookCurrentPage = mBookCurrentPage;
+        this.mBookTargetPage = mBookTargetPage;
         this.mContext = mContext;
     }
 
@@ -40,8 +47,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         viewHolder.bookTitle.setText(mBookTitles.get(i));
         viewHolder.bookAuthor.setText(mBookAuthors.get(i));
-
-
+        viewHolder.bookProgress.setText(mBookProgress.get(i));
+        viewHolder.currentPage.setText(mBookCurrentPage.get(i));
+        viewHolder.targetPage.setText(mBookTargetPage.get(i));
     }
 
     @Override

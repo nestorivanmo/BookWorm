@@ -11,12 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -36,11 +34,13 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
     private View view;
 
     private Button logOutButton, newBookButton;
-    private TextView titleTV;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private ArrayList<String> mBookTitles = new ArrayList<>();
     private ArrayList<String> mBookAuthors = new ArrayList<>();
+    private ArrayList<String> mBookProgress = new ArrayList<>();
+    private ArrayList<String> mBookCurrentPage = new ArrayList<>();
+    private ArrayList<String> mBookTargetPage = new ArrayList<>();
 
 
     public BookAdminFragment() {
@@ -73,7 +73,6 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
     public void getGraphicElements(View view){
         logOutButton= view.findViewById(R.id.logOutButton_AdminBooks_Fragment);
         newBookButton = view.findViewById(R.id.addBookButton_AdminBooks_Fragment);
-        titleTV = view.findViewById(R.id.titleTV_AdmiBooks_Fragment);
     }
 
     public void logOutUserIfClicked(LayoutInflater inflater){
@@ -92,14 +91,19 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
     public void getDataFromDB(){
         mBookAuthors.add("Swift Jonathan");
         mBookTitles.add("Gulliver's Adventures");
+        mBookProgress.add("67%");
+        mBookCurrentPage.add("340");
+        mBookTargetPage.add("360");
+
         mBookAuthors.add("Nathaniel Hawthorne");
         mBookTitles.add("The Red and the Black");
+        mBookProgress.add("10%");
+        mBookCurrentPage.add("10");
+        mBookTargetPage.add("30");
+
     }
 
     public void runMainThreadNow(final User user){
-
-        titleTV.setText(user.getUsername());
-
         newBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,10 +112,8 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
                 startActivity(intentSign2);
             }
         });
-
         getDataFromDB();
         initRecyclerView();
-
     }
 
     private void initRecyclerView(){
@@ -119,7 +121,7 @@ public class BookAdminFragment extends Fragment implements Fragmentable{
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView_bookAdmin);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), mBookTitles, mBookAuthors);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), mBookTitles, mBookAuthors, mBookProgress, mBookCurrentPage, mBookTargetPage);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 }
